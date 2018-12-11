@@ -1,8 +1,10 @@
 <?php
+namespace Gerador\Arquivo;
 
-class util {
+class Util {
+    
     public function converterMaiusculo($str) {
-        $str = srttoupper($str);
+        return srttoupper($str);
     }
     
     public function removerAcentos($str) {
@@ -34,7 +36,7 @@ class util {
             'Ü' => 'U',
             'Ç' => 'C'
         );
-        $str = strtr($str, $acentos);
+        return strtr($str, $acentos);
     }
     
     public function removerCaracEspeciais($str) {
@@ -62,14 +64,14 @@ class util {
             '+' => '',
             '§' => ''
         );
-        $str = strtr($str, $carac);
+        return strtr($str, $carac);
     }
     
-    public function adicionarZerosEsq($str) {
-        $str = str_pad($str, 3, '0', STR_PAD_LEFT);
+    public function adicionarZerosEsq($str, $tamanho) {
+        return str_pad($str, $tamanho, '0', STR_PAD_LEFT);
     }
     
-    public function adicionarEspacosDir($str) {
-        $str = str_pad($string, 9, ' ', STR_PAD_RIGHT);
+    public function adicionarEspacosDir($str, $tamanho) {
+        return str_pad($string, $tamanho, ' ', STR_PAD_RIGHT);
     }
 }
