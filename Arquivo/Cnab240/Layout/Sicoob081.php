@@ -1,5 +1,5 @@
 <?php
-namespace Gerador\Arquivo\Cnab240\Layout;
+namespace Arquivo\Cnab240\Layout;
 
 class Sicoob081 {
     

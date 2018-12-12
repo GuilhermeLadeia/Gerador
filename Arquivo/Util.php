@@ -1,5 +1,5 @@
 <?php
-namespace Gerador\Arquivo;
+namespace Arquivo;
 
 class Util {
     

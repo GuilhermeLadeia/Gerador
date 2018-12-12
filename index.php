@@ -1,11 +1,10 @@
 <?php
-require_once __DIR__.'/vendor/autoload.php';
 
-include "Arquivo/Arquivo.php";
-include "Arquivo/Cnab240/Layout/Sicoob081.php";
-include "Arquivo/Util.php";
+spl_autoload_register(function ($class_name) {
+    include $class_name . '.php';
+});
 
-$instancia = new Gerador\Arquivo\Arquivo();
+$instancia = new Arquivo\Arquivo();
 $dados = [1 => 756,
     2 => 0,
     3 => 0,
