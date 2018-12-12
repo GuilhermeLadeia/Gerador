@@ -47,25 +47,30 @@ class Arquivo {
         }
         return $resultado;
     }
-
+    /**
+     * 
+     * @param Cnab240\Sicoob081 $instanciaLayout
+     * @param type $dados
+     * @return array
+     */
     private function gerarCnab240($instanciaLayout, $dados) {
         $resultado = [];
         foreach ($dados as $key => $value) {
             switch ($key) {
                 case 'header':
-                    //$resultado[] = $this->interpretar($instanciaLayout->, $value);
+                    $resultado[] = $this->interpretar($instanciaLayout->headerArquivo(), $value);
                     break;
                 case 'headerLote':
-                    //$resultado[] = $this->interpretar($instanciaLayout->, $value);
+                    $resultado[] = $this->interpretar($instanciaLayout->headerLote(), $value);
                     break;
                 case 'segmentoP':
                     foreach ($value as $dadosP) {
-                        //$resultado[] = $this->interpretar($instanciaLayout->, $dadosP);
+                        $resultado[] = $this->interpretar($instanciaLayout->segmentoP(), $dadosP);
                     }
                     break;
                 case 'segmentoQ':
                     foreach ($value as $dadosQ) {
-                        //$resultado[] = $this->interpretar($instanciaLayout->, $dadosQ);
+                        $resultado[] = $this->interpretar($instanciaLayout->segmentoQ(), $dadosQ);
                     }
                     break;
                 case 'trailler':
