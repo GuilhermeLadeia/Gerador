@@ -1,5 +1,5 @@
 <?php
-namespace Arquivo\Cnab240\Layout;
+namespace Arquivo\Cnab240;
 
 class Sicoob081 {
     
@@ -82,7 +82,7 @@ class Sicoob081 {
             18=>[1, 'texto'],
             19=>[15, 'texto'],
             20=>[8, 'num'],
-            21=>[13, 'num'], //ATENÇÂO
+            21=>[13, 'num', 2],
             22=>[5, 'num'],
             23=>[1, 'texto'],
             24=>[2, 'num'],
@@ -90,12 +90,12 @@ class Sicoob081 {
             26=>[8, 'num'],
             27=>[1, 'num'],
             28=>[8, 'num'],
-            29=>[13, 'num'], //ATENÇÂO
+            29=>[13, 'num', 2],
             30=>[1, 'num'], 
             31=>[8, 'num'],
-            32=>[13, 'num'], //ATENÇÂO
-            33=>[13, 'num'], //ATENÇÂO
-            34=>[13, 'num'], //ATENÇÂO
+            32=>[13, 'num', 2],
+            33=>[13, 'num', 2],
+            34=>[13, 'num', 2],
             35=>[25, 'texto'],
             36=>[1, 'num'],
             37=>[2, 'num'],

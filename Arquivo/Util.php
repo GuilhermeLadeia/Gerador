@@ -1,12 +1,14 @@
 <?php
+
 namespace Arquivo;
 
 class Util {
-    
+
     public function converterMaiusculo($str) {
-        return srttoupper($str);
+        $str = srttoupper($str);
+        return $str;
     }
-    
+
     public function removerAcentos($str) {
         $acentos = array(
             'á' => 'a',
@@ -38,7 +40,7 @@ class Util {
         );
         return strtr($str, $acentos);
     }
-    
+
     public function removerCaracEspeciais($str) {
         $carac = array(
             '!' => '',
@@ -66,12 +68,13 @@ class Util {
         );
         return strtr($str, $carac);
     }
-    
+
     public function adicionarZerosEsq($str, $tamanho) {
         return str_pad($str, $tamanho, '0', STR_PAD_LEFT);
     }
-    
+
     public function adicionarEspacosDir($str, $tamanho) {
-        return str_pad($string, $tamanho, ' ', STR_PAD_RIGHT);
+        return str_pad($str, $tamanho, ' ', STR_PAD_RIGHT);
     }
+
 }

@@ -3,7 +3,31 @@
 spl_autoload_register(function ($class_name) {
     include $class_name . '.php';
 });
-
+$modeloAgz = [
+    "segmentoA"=>[],
+    "segmentoG"=>[
+        [],
+        [],
+        []
+    ],
+    "segmentoZ"=>[],
+    ];
+$modeloCnab240 = [
+    "header"=>[],
+    "headerLote"=>[],
+    "segmentoP"=>[
+        [],
+        [],
+        []
+    ],
+    "segmentoQ"=>[
+        [],
+        [],
+        []
+    ],
+    "trailler"=>[],
+    "traillerLote"=>[],
+    ];
 $instancia = new Arquivo\Arquivo();
 $dados = [1 => 756,
     2 => 0,
@@ -13,15 +37,15 @@ $dados = [1 => 756,
     6 => 4848725160,
     7 => "",
     8 => 5678,
-    9 => "m",
+    9 => "1",
     10 => 234654976213,
     11 => 9,
-    12 => "m",
-    13 => "CenterSis",
+    12 => "a",
+    13 => "áõê!+@",
     14 => "SICOOB",
     15 => "",
     16 => 1,
-    17 => 11122018,
+    17 => 1122018,
     18 => 141020,
     19 => 234567,
     20 => 81,
@@ -34,4 +58,3 @@ $saida = $instancia->gerar("Cnab240", "Sicoob081", $dados);
 echo "<pre>";
 print_r($saida);
 echo "Hello";
-
