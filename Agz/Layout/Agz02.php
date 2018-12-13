@@ -1,5 +1,5 @@
 <?php
-namespace Arquivo\Agz;
+namespace Agz\Layout;
 
 class Agz02 {
     

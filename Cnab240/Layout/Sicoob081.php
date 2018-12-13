@@ -1,5 +1,5 @@
 <?php
-namespace Arquivo\Cnab240;
+namespace Cnab240\Layout;
 
 class Sicoob081 {
     
@@ -132,6 +132,39 @@ class Sicoob081 {
             21=>[8, 'num'],
             22=>[8, 'num'],
             23=>[33, 'texto'],
+        ];
+    }
+    
+    public function traillerLote() {
+        return [
+            1=>[3, 'num'],
+            2=>[4, 'num'],
+            3=>[1, 'num'],
+            4=>[9, 'texto'],
+            5=>[6, 'num'],
+            6=>[6, 'num'],
+            7=>[15, 'num', 2],
+            8=>[6, 'num'],
+            9=>[15, 'num', 2],
+            10=>[6, 'num'],
+            11=>[15, 'num', 2],
+            12=>[6, 'num'],
+            13=>[15, 'num', 2],
+            14=>[8, 'texto'],
+            15=>[117, 'texto'],
+        ];
+    }
+    
+    public function traillerArquivo() {
+        return [
+            1=>[3, 'num'],
+            2=>[4, 'num'],
+            3=>[1, 'num'],
+            4=>[9, 'texto'],
+            5=>[6, 'num'],
+            6=>[6, 'num'],
+            7=>[6, 'num'],
+            8=>[205, 'texto'],
         ];
     }
 }
