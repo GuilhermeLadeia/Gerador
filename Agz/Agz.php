@@ -26,25 +26,30 @@ class Agz {
     }
 
     public function gerar($layout) {
-        echo '<pre>';
-        print_r($this->segmentoA);
-        print_r($this->segmentoG);
-        exit();
         $caminho = 'Agz\\Layout\\'.$layout;
         $instancia = new $caminho;
         $resultado = [];
         $modeloA = $instancia->segmentoA();
+        $segmentoA = [];
         foreach ($modeloA as $key => $especificacoes) {
-            $resultado[] = $this->tratarDados($especificacoes, $this->segmentoA[$key]);
+            $segmentoA[] = $this->tratarDados($especificacoes, $this->segmentoA[$key]);
         }
+        $resultado[] = $segmentoA;
         $modeloG = $instancia->segmentoG();
-        foreach ($modeloG as $key => $especificacoes) {
-            $resultado[] = $this->tratarDados($especificacoes, $this->segmentoG[$key]);
+        
+        foreach($this->segmentoG as $segmento) {
+            $segmentoG = [];
+            foreach ($modeloG as $key => $especificacoes) {
+                $segmentoG[] = $this->tratarDados($especificacoes, $segmento[$key]); 
+            }
+            $resultado[]= $segmentoG;
         }
-        /*$modeloZ = $instancia->segmentoZ();
+        $modeloZ = $instancia->segmentoZ();
+        $segmentoZ= [];
         foreach ($modeloZ as $key => $especificacoes) {
-            $resultado[] = $this->tratarDados($especificacoes, $this->segmentoZ[$key]);
-        }*/
+            $segmentoZ[] = $this->tratarDados($especificacoes, $this->segmentoZ[$key]);
+        }
+        $resultado[] = $segmentoZ;
         return $resultado;
     }
 
@@ -56,6 +61,7 @@ class Agz {
         } else {
             $valor = $instancia->removerCaracEspeciais($valor);
             $valor = $instancia->removerAcentos($valor);
+            $valor = $instancia->converterMaiusculo($valor);
             $valor = $instancia->adicionarEspacosDir($valor, $especificacoes[0]);
         }
         return $valor;

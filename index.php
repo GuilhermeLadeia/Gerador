@@ -1,9 +1,8 @@
 <?php
-
 spl_autoload_register(function ($class_name) {
     include $class_name . '.php';
 });
-$instanciaAgz = new \Agz\Agz();
+$instanciaAgz = new Agz\Agz();
 $segmentoA = [1 => "A",
         2 => 20,
         3 => "66775849384",
@@ -45,10 +44,15 @@ $segmentoG2 = [1 => "G",
         12 => 3,
         13 => "Credito",];
 $instanciaAgz->setSegmentoG($segmentoG2);
-$segmentoZ = [];
+$segmentoZ = [1 => "Z",
+        2 => 432156,
+        3 => 540000,
+        4 => "Futuro",
+    ];
 $instanciaAgz->setSegmentoZ($segmentoZ);
-$Cnab240 = [
-    "header"=>[1 => 756,
+
+$instanciaCnab240 = new \Cnab240\Cnab240();
+$headerArquivo = [1 => 756,
         2 => 0,
         3 => 0,
         4 => "",
@@ -72,8 +76,9 @@ $Cnab240 = [
         22 => "",
         23 => "",
         24 => "",
-        ],
-    "headerLote"=>[1 => 756,
+    ];
+$instanciaCnab240->setHeaderArquivo($headerArquivo);
+$headerLote = [1 => 756,
         2 => 0001,
         3 => 1,
         4 => "r",
@@ -96,45 +101,80 @@ $Cnab240 = [
         21 => 78942163,
         22 => 00000000,
         23 => "",
-    ],
-    "segmentoP"=>[
-        [1 => 756,
-            2 => 0001,
-            3 => 3,
-            4 => 00001,
-            5 => "P",
-            6 => "",
-            7 => 10,
-            8 => 5678,
-            9 => "1",
-            10 => 234654976213,
-            11 => "j",
-            12 => "a",
-            13 => "15",
-            14 => 2,
-            15 => 0,
-            16 => "",
-            17 => 2,
-            18 => "1",
-            19 => "3456789012",
-            20 => 9012019,
-            21 => 23456,
-            22 => 00000,
-            23 => "q",
-            24 => "",  
-        ],
-        [],
-        []
-    ],
-    "segmentoQ"=>[
-        [],
-        [],
-        []
-    ],
-    "traillerLote"=>[],
-    "traillerArquivo"=>[],
     ];
-$saida = $instanciaAgz->gerar("Agz02");
+$instanciaCnab240->setHeaderLote($headerLote);
+
+$segmentoP = [1 => 756,
+        2 => 0001,
+        3 => 3,
+        4 => 00001,
+        5 => "P",
+        6 => "",
+        7 => 10,
+        8 => 5678,
+        9 => "1",
+        10 => 234654976213,
+        11 => "j",
+        12 => "a",
+        13 => "15",
+        14 => 2,
+        15 => 0,
+        16 => "",
+        17 => 2,
+        18 => "1",
+        19 => "3456789012",
+        20 => 9012019,
+        21 => 23456,
+        22 => 00000,
+        23 => "q",
+        24 => 11,
+        25 => "A",
+        26 => 20042014,
+        27 => 0,
+        28 => 20072019,
+        29 => 1,
+        30 => 0,
+        31 => 25112019,
+        32 => 13,
+        33 => 15,
+        34 => 17,
+        35 => "Titulo",
+        36 => 1,
+        37 => 15,
+        38 => 0,
+        39 => "",
+        40 => 20,
+        41 => 00000000,
+        42 => "",
+    ];
+$instanciaCnab240->setSegmentoP($segmentoP);
+
+$segmentoQ = [1 => 756,
+        2 => 0001,
+        3 => 3,
+        4 => 00001,
+        5 => "q",
+        6 => "",
+        7 => 01,
+        8 => 1,
+        9 => 12345,
+        10 => "Nome",
+        11 => "Rua comandante balduino",
+        12 => "Centro",
+        13 => 78200,
+        14 => 000,
+        15 => "caceres",
+        16 => "mt",
+        17 => 1,
+        18 => 8347578,
+        19 => "José",
+        20 => 237,
+        21 => "000",
+        22 => "",
+    ];
+$instanciaCnab240->setSegmentoQ($segmentoQ);
+
+$saida = $instanciaCnab240->gerar("Sicoob081");
 echo "<pre>";
 print_r($saida);
 echo "Hello";
