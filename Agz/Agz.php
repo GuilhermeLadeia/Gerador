@@ -25,45 +25,38 @@ class Agz {
         $this->segmentoZ = $segmentoZ;
     }
 
-    public function gerar($layout) {
+    public function gerar($layout, $nomeArquivo, $caminhoArquivo='') {
         $caminho = 'Agz\\Layout\\'.$layout;
         $instancia = new $caminho;
         $resultado = [];
+        $instanciaPadrao = new \Arquivo\ArquivoPadrao();
         $modeloA = $instancia->segmentoA();
+        $modeloADefault = $instancia->segmentoADefault();
         $segmentoA = [];
         foreach ($modeloA as $key => $especificacoes) {
-            $segmentoA[] = $this->tratarDados($especificacoes, $this->segmentoA[$key]);
+            $valorNaoTratadoA = $this->segmentoA[$key];
+            if(empty($valorNaoTratadoA)and(isset($modeloADefault[$key]))){
+                $valorNaoTratadoA = $modeloADefault[$key];
+            }
+            $segmentoA[] = $instanciaPadrao->tratarDados($especificacoes, $valorNaoTratadoA);
         }
         $resultado[] = $segmentoA;
-        $modeloG = $instancia->segmentoG();
         
+        $modeloG = $instancia->segmentoG();
         foreach($this->segmentoG as $segmento) {
             $segmentoG = [];
             foreach ($modeloG as $key => $especificacoes) {
-                $segmentoG[] = $this->tratarDados($especificacoes, $segmento[$key]); 
+                $segmentoG[] = $instanciaPadrao->tratarDados($especificacoes, $segmento[$key]); 
             }
             $resultado[]= $segmentoG;
         }
         $modeloZ = $instancia->segmentoZ();
+        
         $segmentoZ= [];
         foreach ($modeloZ as $key => $especificacoes) {
-            $segmentoZ[] = $this->tratarDados($especificacoes, $this->segmentoZ[$key]);
+            $segmentoZ[] = $instanciaPadrao->tratarDados($especificacoes, $this->segmentoZ[$key]);
         }
         $resultado[] = $segmentoZ;
-        return $resultado;
-    }
-
-    private function tratarDados($especificacoes, $valor) {
-        //var_dump($valor);
-        $instancia = new \Arquivo\Util();
-        if ($especificacoes[1] == 'num') {
-            $valor = $instancia->adicionarZerosEsq($valor, $especificacoes[0]);
-        } else {
-            $valor = $instancia->removerCaracEspeciais($valor);
-            $valor = $instancia->removerAcentos($valor);
-            $valor = $instancia->converterMaiusculo($valor);
-            $valor = $instancia->adicionarEspacosDir($valor, $especificacoes[0]);
-        }
-        return $valor;
+        return $instanciaPadrao->gravar($resultado, $caminhoArquivo, $nomeArquivo);
     }
 }

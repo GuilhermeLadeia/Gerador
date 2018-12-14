@@ -16,8 +16,18 @@ class Agz02 {
             9=>[2, 'num'],
             10=>[69, 'texto'],
         ];
+       
     }
     
+    public function segmentoADefault(){
+        return [
+            1=>'A',
+            7=>  date('Ymd'),
+            9=>02,
+        ];
+    }
+
+
     public function segmentoG() {
         return [
             1=>[1, 'texto'],
@@ -36,12 +46,24 @@ class Agz02 {
         ];
     }
     
+    public function segmentoGDefault($param) {
+        return [
+            1=>'G',
+        ];
+    }
+    
     public function segmentoZ() {
         return [
             1=>[1, 'texto'],
             2=>[6, 'num'],
             3=>[17, 'num'],
             4=>[126, 'texto'],
+        ];
+    }
+    
+    public function segmentoZDefault() {
+        return [
+            1=>'Z',
         ];
     }
 }

@@ -3,7 +3,7 @@ spl_autoload_register(function ($class_name) {
     include $class_name . '.php';
 });
 $instanciaAgz = new Agz\Agz();
-$segmentoA = [1 => "A",
+$segmentoA = [1 => "",
         2 => 20,
         3 => "66775849384",
         4 => "CenterSis",
@@ -439,7 +439,6 @@ $traillerArquivo = [1 => 756,
     ];
 $instanciaCnab240->setTraillerArquivo($traillerArquivo);
 
-$saida = $instanciaCnab240->gerar("Sicoob081");
-echo "<pre>";
-print_r($saida);
+$instanciaAgz->gerar("Agz02", "arquivoAgz02.txt");
+$instanciaCnab240->gerar("Sicoob081", "arquivoSicoob081.txt");
 echo "Hello";

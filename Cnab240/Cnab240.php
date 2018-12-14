@@ -50,23 +50,23 @@ class Cnab240 {
         $this->traillerArquivo = $traillerArquivo;
     }
 
-    public function gerar($layout) {
+    public function gerar($layout, $nomeArquivo, $caminhoArquivo='') {
 
         $caminho = 'Cnab240\\Layout\\' . $layout;
         $instancia = new $caminho;
         $resultado = [];
-
+        $instanciaPadrao = new \Arquivo\ArquivoPadrao();
         $modeloHeaderArquivo = $instancia->headerArquivo();
         $headerArquivo = [];
         foreach ($modeloHeaderArquivo as $key => $especificacoes) {
-            $headerArquivo[] = $this->tratarDados($especificacoes, $this->headerArquivo[$key]);
+            $headerArquivo[] = $instanciaPadrao->tratarDados($especificacoes, $this->headerArquivo[$key]);
         }
         $resultado[] = $headerArquivo;
 
         $modeloHeaderLote = $instancia->headerLote();
         $headerLote = [];
         foreach ($modeloHeaderLote as $key => $especificacoes) {
-            $headerLote[] = $this->tratarDados($especificacoes, $this->headerLote[$key]);
+            $headerLote[] = $instanciaPadrao->tratarDados($especificacoes, $this->headerLote[$key]);
         }
         $resultado[] = $headerLote;
 
@@ -76,16 +76,16 @@ class Cnab240 {
         foreach ($this->segmentoP as $keySegmentoP => $dadosSegmentoP) {
             $segmentoP = [];
             foreach ($modeloSegmentoP as $keyModeloP => $especificacoesModeloP) {
-                $segmentoP[] = $this->tratarDados($especificacoesModeloP, $dadosSegmentoP[$keyModeloP]);
+                $segmentoP[] = $instanciaPadrao->tratarDados($especificacoesModeloP, $dadosSegmentoP[$keyModeloP]);
             }
             $segmentoQ = [];
             foreach ($modeloSegmentoQ as $keyModeloQ => $especificacoesModeloQ) {
-                $segmentoQ[] = $this->tratarDados($especificacoesModeloQ, $this->segmentoQ[$keySegmentoP][$keyModeloQ]);
+                $segmentoQ[] = $instanciaPadrao->tratarDados($especificacoesModeloQ, $this->segmentoQ[$keySegmentoP][$keyModeloQ]);
             }
             if ($this->segmentoR) {
                 $segmentoR = [];
                 foreach ($modeloSegmentoR as $keyModeloR => $especificacoesModeloR) {
-                    $segmentoR[] = $this->tratarDados($especificacoesModeloR, $this->segmentoR[$keySegmentoP][$keyModeloR]);
+                    $segmentoR[] = $instanciaPadrao->tratarDados($especificacoesModeloR, $this->segmentoR[$keySegmentoP][$keyModeloR]);
                 }
             }
             $resultado[] = $segmentoP;
@@ -97,44 +97,18 @@ class Cnab240 {
         $modeloTraillerLote = $instancia->traillerLote();
         $traillerLote = [];
         foreach ($modeloTraillerLote as $key => $especificacoes) {
-            $traillerLote[] = $this->tratarDados($especificacoes, $this->traillerLote[$key]);
+            $traillerLote[] = $instanciaPadrao->tratarDados($especificacoes, $this->traillerLote[$key]);
         }
         $resultado[] = $traillerLote;
 
         $modeloTraillerArquivo = $instancia->traillerArquivo();
         $traillerArquivo = [];
         foreach ($modeloTraillerArquivo as $key => $especificacoes) {
-            $traillerArquivo[] = $this->tratarDados($especificacoes, $this->traillerArquivo[$key]);
+            $traillerArquivo[] = $instanciaPadrao->tratarDados($especificacoes, $this->traillerArquivo[$key]);
         }
 
         $resultado[] = $traillerArquivo;
-        return $this->gravar($resultado);
-    }
-
-    function gravar($resultado) {
-        $arquivo = "meu_arquivo.txt";
-        $fp = fopen($arquivo, "a+");
-        foreach ($resultado as $value) {
-            $linha = '';
-            foreach ($value as $dados) {
-                $linha.=$dados;
-            }
-            fwrite($fp, $linha . "\r\n");
-        }
-        fclose($fp);
-    }
-
-    private function tratarDados($especificacoes, $valor) {
-        $instancia = new \Arquivo\Util();
-        if ($especificacoes[1] == 'num') {
-            $valor = $instancia->adicionarZerosEsq($valor, $especificacoes[0]);
-        } else {
-            $valor = $instancia->removerCaracEspeciais($valor);
-            $valor = $instancia->removerAcentos($valor);
-            $valor = $instancia->converterMaiusculo($valor);
-            $valor = $instancia->adicionarEspacosDir($valor, $especificacoes[0]);
-        }
-        return $valor;
+        return $instanciaPadrao->gravar($resultado, $caminhoArquivo, $nomeArquivo);
     }
 
 }
