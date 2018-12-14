@@ -410,6 +410,35 @@ $segmentoR3 = [1 => 756,
     ];
 $instanciaCnab240->setSegmentoR($segmentoR3);
 
+$traillerLote = [1 => 756,
+        2 => 0001,
+        3 => 5,
+        4 => "",
+        5 => 3000,
+        6 => 29301,
+        7 => 40300,
+        8 => 234567,
+        9 => 32000,
+        10 => 23,
+        11 => 123,
+        12 => 3001,
+        13 => 3000,
+        14 => "",
+        15 => "",
+    ];
+$instanciaCnab240->setTraillerLote($traillerLote);
+
+$traillerArquivo = [1 => 756,
+        2 => 9999,
+        3 => 9,
+        4 => "",
+        5 => 300,
+        6 => 29,
+        7 => 40,
+        8 => "",
+    ];
+$instanciaCnab240->setTraillerArquivo($traillerArquivo);
+
 $saida = $instanciaCnab240->gerar("Sicoob081");
 echo "<pre>";
 print_r($saida);

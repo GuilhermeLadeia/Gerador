@@ -37,7 +37,7 @@ class Cnab240 {
     function setSegmentoQ($segmentoQ) {
         $this->segmentoQ[] = $segmentoQ;
     }
-    
+
     function setSegmentoR($segmentoR) {
         $this->segmentoR[] = $segmentoR;
     }
@@ -82,7 +82,7 @@ class Cnab240 {
             foreach ($modeloSegmentoQ as $keyModeloQ => $especificacoesModeloQ) {
                 $segmentoQ[] = $this->tratarDados($especificacoesModeloQ, $this->segmentoQ[$keySegmentoP][$keyModeloQ]);
             }
-            if($this->segmentoR){
+            if ($this->segmentoR) {
                 $segmentoR = [];
                 foreach ($modeloSegmentoR as $keyModeloR => $especificacoesModeloR) {
                     $segmentoR[] = $this->tratarDados($especificacoesModeloR, $this->segmentoR[$keySegmentoP][$keyModeloR]);
@@ -90,25 +90,38 @@ class Cnab240 {
             }
             $resultado[] = $segmentoP;
             $resultado[] = $segmentoQ;
-            if($this->segmentoR){
+            if ($this->segmentoR) {
                 $resultado[] = $segmentoR;
             }
         }
+        $modeloTraillerLote = $instancia->traillerLote();
+        $traillerLote = [];
+        foreach ($modeloTraillerLote as $key => $especificacoes) {
+            $traillerLote[] = $this->tratarDados($especificacoes, $this->traillerLote[$key]);
+        }
+        $resultado[] = $traillerLote;
 
-        /* $modeloTraillerLote = $instancia->traillerLote();
-          $traillerLote= [];
-          foreach ($modeloTraillerLote as $key => $especificacoes) {
-          $traillerLote[] = $this->tratarDados($especificacoes, $this->traillerLote[$key]);
-          }
-          $resultado[] = $traillerLote;
+        $modeloTraillerArquivo = $instancia->traillerArquivo();
+        $traillerArquivo = [];
+        foreach ($modeloTraillerArquivo as $key => $especificacoes) {
+            $traillerArquivo[] = $this->tratarDados($especificacoes, $this->traillerArquivo[$key]);
+        }
 
-          $modeloTraillerArquivo = $instancia->traillerArquivo();
-          $traillerArquivo= [];
-          foreach ($modeloTraillerArquivo as $key => $especificacoes) {
-          $traillerArquivo[] = $this->tratarDados($especificacoes, $this->traillerArquivo[$key]);
-          }
-          $resultado[] = $traillerArquivo; */
-        return $resultado;
+        $resultado[] = $traillerArquivo;
+        return $this->gravar($resultado);
+    }
+
+    function gravar($resultado) {
+        $arquivo = "meu_arquivo.txt";
+        $fp = fopen($arquivo, "a+");
+        foreach ($resultado as $value) {
+            $linha = '';
+            foreach ($value as $dados) {
+                $linha.=$dados;
+            }
+            fwrite($fp, $linha . "\r\n");
+        }
+        fclose($fp);
     }
 
     private function tratarDados($especificacoes, $valor) {
