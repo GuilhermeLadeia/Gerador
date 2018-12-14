@@ -134,6 +134,40 @@ class Sicoob081 {
         ];
     }
     
+    public function segmentoR() {
+        return [
+            1=>[3, 'num'],
+            2=>[4, 'num'],
+            3=>[1, 'num'],
+            4=>[5, 'num'],
+            5=>[1, 'texto'],
+            6=>[1, 'texto'],
+            7=>[2, 'num'],
+            8=>[1, 'num'],
+            9=>[8, 'num'],
+            10=>[13, 'num', 2],
+            11=>[1, 'num'],
+            12=>[8, 'num'],
+            13=>[13, 'num', 2],
+            14=>[10, 'texto'],
+            15=>[8, 'num'],
+            16=>[13, 'num', 2],
+            17=>[10, 'texto'],
+            18=>[40, 'texto'],
+            19=>[40, 'texto'],
+            20=>[20, 'texto'],
+            21=>[8, 'num'],
+            22=>[3, 'num'],
+            23=>[5, 'num'],
+            24=>[1, 'texto'],
+            25=>[12, 'num'],
+            26=>[1, 'texto'],
+            27=>[1, 'texto'],
+            28=>[1, 'num'],
+            29=>[9, 'texto'],
+        ];
+    }
+    
     public function traillerLote() {
         return [
             1=>[3, 'num'],
