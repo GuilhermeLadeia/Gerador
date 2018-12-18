@@ -7,7 +7,8 @@ use \Arquivo\ArquivoValidacao;
 class ValidacaoCnab240 extends ArquivoValidacao{
     
     public function validaOpcao1e2($opcao, $posicao) {
-        if($opcao != "1"||$opcao != "2"){
+        $opcoes = [1, 2];
+        if(array_search($opcao, $opcoes)===false){
             throw new \Exception("Posição ".$posicao." inválida");
         }
     }
@@ -20,13 +21,15 @@ class ValidacaoCnab240 extends ArquivoValidacao{
     }
     
     public function validaIdTitulo($opcao, $posicao) {
-        if($opcao != "A"||$opcao != "N"){
+        $opcoes = ["A", "N"];
+        if(array_search($opcao, $opcoes)===false){
             throw new \Exception("Posição ".$posicao." inválida");
         }
     }
     
     public function validaCodigo($opcao, $posicao) {
-        if($opcao != 0||$opcao != 1||$opcao != 2){
+        $opcoes = [0, 1, 2];
+        if(array_search($opcao, $opcoes)===false){
             throw new \Exception("Posição ".$posicao." inválida");
         }
     }
@@ -44,14 +47,14 @@ class ValidacaoCnab240 extends ArquivoValidacao{
     
     public function validaCodigoProtesto($opcao, $posicao) {
         $opcoes = [1, 2, 3, 9];
-        if(array_search($opcao, $opcoes)==false){
+        if(array_search($opcao, $opcoes)===false){
             throw new \Exception("Posição ".$posicao." inválida");
         }
     }
     
     public function codigoMoeda($opcao, $posicao) {
-        $opcoes = [02, 09];
-        if(array_search($opcao, $opcoes)==false){
+        $opcoes = [2, 9];
+        if(array_search($opcao, $opcoes)===false){
             throw new \Exception("Posição ".$posicao." inválida");
         }
     }

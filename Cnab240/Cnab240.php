@@ -2,6 +2,9 @@
 
 namespace Cnab240;
 
+use Arquivo\ArquivoPadrao;
+use Cnab240\ValidacaoCnab240;
+
 class Cnab240 {
 
     private $headerArquivo;
@@ -50,42 +53,94 @@ class Cnab240 {
         $this->traillerArquivo = $traillerArquivo;
     }
 
-    public function gerar($layout, $nomeArquivo, $caminhoArquivo='') {
+    public function gerar($layout, $nomeArquivo, $caminhoArquivo = '') {
 
         $caminho = 'Cnab240\\Layout\\' . $layout;
         $instancia = new $caminho;
         $resultado = [];
-        $instanciaPadrao = new \Arquivo\ArquivoPadrao();
+        $instanciaPadrao = new ArquivoPadrao();
+        $validacaoCnab = new ValidacaoCnab240();
+
+        $modeloHeaderArqDefault = $instancia->headerArquivoDefault();
+        $modeloHeaderArqValidacao = $instancia->headerArquivoValidacao();
         $modeloHeaderArquivo = $instancia->headerArquivo();
         $headerArquivo = [];
         foreach ($modeloHeaderArquivo as $key => $especificacoes) {
-            $headerArquivo[] = $instanciaPadrao->tratarDados($especificacoes, $this->headerArquivo[$key]);
+            $valor = $this->headerArquivo[$key];
+            if (empty($valor)and ( isset($modeloHeaderArqDefault[$key]))) {
+                $valor = $modeloHeaderArqDefault[$key];
+            }
+            $valor = $instanciaPadrao->tratarDados($especificacoes, $valor);
+            if (isset($modeloHeaderArqValidacao[$key])) {
+                $validacaoCnab->{$modeloHeaderArqValidacao[$key]}($valor, $key);
+            }
+            $headerArquivo[] = $valor;
         }
         $resultado[] = $headerArquivo;
 
+        $modeloHeaderLoteDefault = $instancia->headerloteDefault();
+        $modeloHeaderLoteValidacao = $instancia->headerLoteValidacao();
         $modeloHeaderLote = $instancia->headerLote();
         $headerLote = [];
         foreach ($modeloHeaderLote as $key => $especificacoes) {
-            $headerLote[] = $instanciaPadrao->tratarDados($especificacoes, $this->headerLote[$key]);
+            $valor = $this->headerLote[$key];
+            if (empty($valor)and ( isset($modeloHeaderLoteDefault[$key]))) {
+                $valor = $modeloHeaderLoteDefault[$key];
+            }
+            $valor = $instanciaPadrao->tratarDados($especificacoes, $valor);
+            if (isset($modeloHeaderLoteValidacao[$key])) {
+                $validacaoCnab->{$modeloHeaderLoteValidacao[$key]}($valor, $key);
+            }
+            $headerLote[] = $valor;
         }
         $resultado[] = $headerLote;
 
         $modeloSegmentoP = $instancia->segmentoP();
+        $modeloSegmentoPDefault = $instancia->segmentoPDefault();
+        $modeloSegmentoPValidacao = $instancia->segmentoPValidacao();
         $modeloSegmentoQ = $instancia->segmentoQ();
+        $modeloSegmentoQDefault = $instancia->segmentoQDefault();
+        $modeloSegmentoQValidacao = $instancia->segmentoQValidacao();
         $modeloSegmentoR = $instancia->segmentoR();
+        $modeloSegmentoRDefault = $instancia->segmentoRDefault();
+        $modeloSegmentoRValidacao = $instancia->segmentoRValidacao();
         foreach ($this->segmentoP as $keySegmentoP => $dadosSegmentoP) {
             $segmentoP = [];
             foreach ($modeloSegmentoP as $keyModeloP => $especificacoesModeloP) {
-                $segmentoP[] = $instanciaPadrao->tratarDados($especificacoesModeloP, $dadosSegmentoP[$keyModeloP]);
+                $valorP = $dadosSegmentoP[$keyModeloP];
+                if (empty($valorP)and ( isset($modeloSegmentoPDefault[$keyModeloP]))) {
+                    $valorP = $modeloSegmentoPDefault[$keyModeloP];
+                }
+                $valorP = $instanciaPadrao->tratarDados($especificacoesModeloP, $valorP);
+                if (isset($modeloSegmentoPValidacao[$keyModeloP])) {
+                    $validacaoCnab->{$modeloSegmentoPValidacao[$keyModeloP]}($valorP, $keyModeloP);
+                }
+                $segmentoP[] = $valorP;
             }
             $segmentoQ = [];
             foreach ($modeloSegmentoQ as $keyModeloQ => $especificacoesModeloQ) {
-                $segmentoQ[] = $instanciaPadrao->tratarDados($especificacoesModeloQ, $this->segmentoQ[$keySegmentoP][$keyModeloQ]);
+                $valorQ = $this->segmentoQ[$keySegmentoP][$keyModeloQ];
+                if (empty($valorQ)and ( isset($modeloSegmentoQDefault[$keyModeloQ]))) {
+                    $valorQ = $modeloSegmentoQDefault[$keyModeloQ];
+                }
+                $valorQ = $instanciaPadrao->tratarDados($especificacoesModeloQ, $valorQ);
+                if (isset($modeloSegmentoQValidacao[$keyModeloQ])) {
+                    $validacaoCnab->{$modeloSegmentoQValidacao[$keyModeloQ]}($valorQ, $keyModeloQ);
+                }
+                $segmentoQ[] = $valorQ;
             }
             if ($this->segmentoR) {
                 $segmentoR = [];
                 foreach ($modeloSegmentoR as $keyModeloR => $especificacoesModeloR) {
-                    $segmentoR[] = $instanciaPadrao->tratarDados($especificacoesModeloR, $this->segmentoR[$keySegmentoP][$keyModeloR]);
+                    $valorR = $this->segmentoR[$keySegmentoP][$keyModeloR];
+                    if (empty($valorR)and ( isset($modeloSegmentoRDefault[$keyModeloR]))) {
+                        $valorR = $modeloSegmentoRDefault[$keyModeloR];
+                    }
+                    $valorR = $instanciaPadrao->tratarDados($especificacoesModeloR, $valorR);
+                    if(isset($modeloSegmentoRValidacao[$keyModeloR])){
+                        $validacaoCnab->{$modeloSegmentoRValidacao[$keyModeloR]}($valorR, $keyModeloR);
+                    }
+                    $segmentoR[] = $valorR;
                 }
             }
             $resultado[] = $segmentoP;
@@ -94,17 +149,38 @@ class Cnab240 {
                 $resultado[] = $segmentoR;
             }
         }
+
         $modeloTraillerLote = $instancia->traillerLote();
+        $modeloTraillerLoteDefault = $instancia->traillerLoteDefault();
+        $modeloTraillerLoteValidacao = $instancia->traillerLoteValidacao();
         $traillerLote = [];
         foreach ($modeloTraillerLote as $key => $especificacoes) {
-            $traillerLote[] = $instanciaPadrao->tratarDados($especificacoes, $this->traillerLote[$key]);
+            $valor = $this->traillerLote[$key];
+            if (empty($valor)and ( isset($modeloTraillerLoteDefault[$key]))) {
+                $valor = $modeloTraillerLoteDefault[$key];
+            }
+            $valor = $instanciaPadrao->tratarDados($especificacoes, $valor);
+            if (isset($modeloTraillerLoteValidacao[$key])) {
+                $validacaoCnab->{$modeloTraillerLoteValidacao[$key]}($valor, $key);
+            }
+            $traillerLote[] = $valor;
         }
         $resultado[] = $traillerLote;
 
         $modeloTraillerArquivo = $instancia->traillerArquivo();
+        $modeloTraillerArquivoDefault = $instancia->traillerArquivoDefault();
+        $modeloTraillerArquivoValidacao = $instancia->traillerArquivoValidacao();
         $traillerArquivo = [];
         foreach ($modeloTraillerArquivo as $key => $especificacoes) {
-            $traillerArquivo[] = $instanciaPadrao->tratarDados($especificacoes, $this->traillerArquivo[$key]);
+            $valor = $this->traillerArquivo[$key];
+            if (empty($valor)and ( isset($modeloTraillerArquivoDefault[$key]))) {
+                $valor = $modeloTraillerArquivoDefault[$key];
+            }
+            $valor = $instanciaPadrao->tratarDados($especificacoes, $valor);
+            if (isset($modeloTraillerArquivoValidacao[$key])) {
+                $validacaoCnab->{$modeloTraillerArquivoValidacao[$key]}($valor, $key);
+            }
+            $traillerArquivo[] = $valor;
         }
 
         $resultado[] = $traillerArquivo;

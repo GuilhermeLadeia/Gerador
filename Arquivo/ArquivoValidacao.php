@@ -14,9 +14,6 @@ class ArquivoValidacao {
             $ano = substr($dataFormatada, 0, 4);
             $mes = substr($dataFormatada, 4, 2);
             $dia = substr($dataFormatada, 6, 2);
-            
-            
-            echo "$ano/$mes/$dia";
             if (strlen($ano) < 4) {
                 throw new \Exception("Posição " . $posicao . " inválida");
             } else {
@@ -74,11 +71,11 @@ class ArquivoValidacao {
     }
 
     public function validaCep($cep, $posicao) {
-        $cep = trim($cep);
-        $avaliaCep = ereg("^[0-9]{5}-[0-9]{3}$", $cep);
-        if (!$avaliaCep) {
-            throw new \Exception("Posição " . $posicao . " inválida");
-        }
+//        $cep = trim($cep);
+//        $avaliaCep = ereg("^[0-9]{5}-[0-9]{3}$", $cep);
+//        if (!$avaliaCep) {
+//            throw new \Exception("Posição " . $posicao . " inválida");
+//        }
     }
 
     public function validaUf($opcao, $posicao) {
@@ -89,7 +86,7 @@ class ArquivoValidacao {
             "PI", "PR", "RJ", "RN",
             "RO", "RR", "RS", "SC",
             "SE", "SP", "TO"];
-        if ($opcao !== array_search($opcao, $opcoes)) {
+        if (array_search($opcao, $opcoes)===false) {
             throw new \Exception("Posição " . $posicao . " inválida");
         }
     }

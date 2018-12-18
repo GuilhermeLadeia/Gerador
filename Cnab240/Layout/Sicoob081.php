@@ -39,7 +39,7 @@ class Sicoob081 {
             5=>01,
             17=>date('Ymd'),
             18=>date('his'),
-            20=>081,
+            20=>81,
             
         ];
     }
@@ -47,8 +47,7 @@ class Sicoob081 {
     public function headerArquivoValidacao() {
         return [
             5=>"validaOpcao1e2",
-            17=>"validaData",
-            
+            17=>"validaData", 
         ];
     }
     
@@ -92,9 +91,9 @@ class Sicoob081 {
         ];
     }
     
-    public function headerLoteValidacao($param) {
+    public function headerLoteValidacao() {
         return [
-            18=>"validaOpcao1e2",
+            9=>"validaOpcao1e2",
             192=>"validaData",
         ];
     }
@@ -299,6 +298,11 @@ class Sicoob081 {
         ];
     }
     
+    public function traillerLoteValidacao(){
+        return [];
+    }
+
+
     public function traillerArquivo() {
         return [
             1=>[3, 'num'],
@@ -319,5 +323,9 @@ class Sicoob081 {
             8=>9,
             30=>000000,
         ];
+    }
+    
+    public function traillerArquivoValidacao(){
+        return [];
     }
 }

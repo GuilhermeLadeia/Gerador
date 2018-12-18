@@ -44,8 +44,8 @@ class Agz {
             if (empty($valor)and ( isset($modeloADefault[$key]))) {
                 $valor = $modeloADefault[$key];
             }
+            $valor = $instanciaPadrao->tratarDados($especificacoes, $valor);
             if (isset($modeloAValidacao[$key])) {
-                $valor = $instanciaPadrao->tratarDados($especificacoes, $valor);
                 $validacaoAgz->{$modeloAValidacao[$key]}($valor, $key);
             }
             $segmentoA[] = $valor;
@@ -58,8 +58,8 @@ class Agz {
             $segmentoG = [];
             foreach ($modeloG as $key => $especificacoes) {
                 $valor = $segmento[$key];
+                $valor = $instanciaPadrao->tratarDados($especificacoes, $valor);
                 if(isset($modeloGValidacao[$key])){
-                    $valor = $instanciaPadrao->tratarDados($especificacoes, $valor);
                     $validacaoAgz->{$modeloGValidacao[$key]}($valor, $key);
                 }
                 $segmentoG[] = $valor;
