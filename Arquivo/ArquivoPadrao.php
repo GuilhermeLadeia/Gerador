@@ -1,12 +1,18 @@
 <?php
+
 namespace Arquivo;
+
 class ArquivoPadrao {
-    
+
     public function gravar($resultado, $caminho, $nomeArquivo) {
         $caminhoAbsoluto = $this->tratarCaminho($caminho, $nomeArquivo);
         $arquivoAberto = fopen($caminhoAbsoluto, "w+");
+        echo "<pre>";
+        print_r($resultado);
         foreach ($resultado as $value) {
             $linha = '';
+            
+            
             foreach ($value as $dados) {
                 $linha.=$dados;
             }
@@ -14,7 +20,7 @@ class ArquivoPadrao {
         }
         fclose($arquivoAberto);
     }
-    
+
     public function tratarDados($especificacoes, $valor) {
         $instancia = new \Arquivo\Util();
         if ($especificacoes[1] == 'num') {
@@ -27,7 +33,7 @@ class ArquivoPadrao {
         }
         return $valor;
     }
-    
+
     private function tratarCaminho($caminho, $nomeArquivo) {
         if (empty($caminho)) {
             return $nomeArquivo;
@@ -39,4 +45,16 @@ class ArquivoPadrao {
             return $caminho . "/" . $nomeArquivo;
         }
     }
+
+    /*public function calcularQuantRegistros($nomeArquivo, $caminho) {
+        $caminhoAbsoluto = $this->tratarCaminho($caminho, $nomeArquivo);
+        $linhas = 0;
+        $arquivo = fopen($caminhoAbsoluto, 'r');
+        while (!feof($arquivo)) {
+            fgets($arquivo);
+            $linhas++;
+        }
+        fclose($arquivo);
+    }*/ 
+
 }

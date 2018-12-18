@@ -22,8 +22,14 @@ class Agz02 {
     public function segmentoADefault(){
         return [
             1=>'A',
-            7=>  date('Ymd'),
+            7=> date('Ymd'),
             9=>02,
+        ];
+    }
+    
+    public function segmentoAValidacao(){
+        return [
+            7=>"validaData",
         ];
     }
 
@@ -46,9 +52,16 @@ class Agz02 {
         ];
     }
     
-    public function segmentoGDefault($param) {
+    public function segmentoGDefault() {
         return [
             1=>'G',
+        ];
+    }
+    
+    public function segmentoGValidacao() {
+        return  [
+            5=>"validaCodigoBarra",
+            11=>"validaFormaPagamento"
         ];
     }
     

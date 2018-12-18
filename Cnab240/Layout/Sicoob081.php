@@ -32,6 +32,26 @@ class Sicoob081 {
         ];
     }
     
+    public function headerArquivoDefault() {
+        return [
+            3=>1,
+            4=>"R",
+            5=>01,
+            17=>date('Ymd'),
+            18=>date('his'),
+            20=>081,
+            
+        ];
+    }
+    
+    public function headerArquivoValidacao() {
+        return [
+            5=>"validaOpcao1e2",
+            17=>"validaData",
+            
+        ];
+    }
+    
     public function headerLote() {
         return [
             1=>[3, 'num'],
@@ -57,6 +77,25 @@ class Sicoob081 {
             21=>[8, 'num'],
             22=>[8, 'num'],
             23=>[33, 'texto'],
+        ];
+    }
+    
+    public function headerLoteDefault() {
+        return [
+            1=>756,
+            3=>1,
+            4=>"R",
+            5=>01,
+            7=>040,
+            18=>  date('Ymd'),
+            22=>00000000,
+        ];
+    }
+    
+    public function headerLoteValidacao($param) {
+        return [
+            18=>"validaOpcao1e2",
+            192=>"validaData",
         ];
     }
     
@@ -107,6 +146,31 @@ class Sicoob081 {
         ];
     }
     
+    public function segmentoPDefault(){
+        return [
+            1=>756,
+            3=>3,
+            5=>"P",
+            15=>0,
+            22=>00000,
+            41=>0000000000,
+        ];
+    }
+    
+    public function segmentoPValidacao() {
+        return [
+            7=>"validaMovimentoRemessa",
+            17=>"validaOpcao1e2",
+            18=>"validaOpcao1e2",
+            24=>"validaEspecieTitulo",
+            25=>"validaIdTitulo",
+            26=>"validaData",
+            27=>"validaCodigo",
+            36=>"validaCodigoProtesto",
+            40=>"codigoMoeda",
+        ];
+    }
+    
     public function segmentoQ() {
         return [
             1=>[3, 'num'],
@@ -131,6 +195,24 @@ class Sicoob081 {
             20=>[8, 'num'],
             21=>[8, 'num'],
             22=>[8, 'texto'],
+        ];
+    }
+    
+    public function segmentoQDefault() {
+        return [
+            1=>756,
+            3=>3,
+            5=>"Q",
+        ];
+    }
+    
+    public function segmentoQValidacao() {
+        return [
+            7=>"validaMovimentoRemessa",
+            8=>"validaOpcao1e2",
+            13=>"validaCep",
+            16=>"validaUf",
+            17=>"validaOpcao1e2",
         ];
     }
     
@@ -168,6 +250,28 @@ class Sicoob081 {
         ];
     }
     
+    public function segmentoRDefault() {
+        return [
+            1=>756,
+            3=>3,
+            5=>"R",
+            21=>00000000,
+            22=>000,
+            23=>00000,
+            25=>00000000000000,
+            28=>0
+        ];
+    }
+    
+    public function segmentoRValidacao() {
+        return [
+            7=>"validaMovimentoRemessa",
+            8=>"validaCodigo",
+            11=>"validaCodigo",
+            14=>"validaCodigo",
+        ];
+    }
+    
     public function traillerLote() {
         return [
             1=>[3, 'num'],
@@ -188,6 +292,13 @@ class Sicoob081 {
         ];
     }
     
+    public function traillerLoteDefault() {
+        return [
+            1=>756,
+            3=>5,
+        ];
+    }
+    
     public function traillerArquivo() {
         return [
             1=>[3, 'num'],
@@ -198,6 +309,15 @@ class Sicoob081 {
             6=>[6, 'num'],
             7=>[6, 'num'],
             8=>[205, 'texto'],
+        ];
+    }
+    
+    public function traillerArquivoDefault() {
+        return [
+            1=>756,
+            4=>9999,
+            8=>9,
+            30=>000000,
         ];
     }
 }

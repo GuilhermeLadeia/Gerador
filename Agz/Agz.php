@@ -2,17 +2,21 @@
 
 namespace Agz;
 
+use Agz\ValidacaoAgz;
+use Arquivo\ArquivoPadrao;
+
 class Agz {
+
     private $segmentoA;
     private $segmentoG;
     private $segmentoZ;
-    
+
     public function __construct() {
         $this->segmentoA = [];
         $this->segmentoG = [];
         $this->segmentoZ = [];
     }
-    
+
     public function setSegmentoA(array $segmentoA) {
         $this->segmentoA = $segmentoA;
     }
@@ -25,38 +29,51 @@ class Agz {
         $this->segmentoZ = $segmentoZ;
     }
 
-    public function gerar($layout, $nomeArquivo, $caminhoArquivo='') {
-        $caminho = 'Agz\\Layout\\'.$layout;
+    public function gerar($layout, $nomeArquivo, $caminhoArquivo = '') {
+        $caminho = 'Agz\\Layout\\' . $layout;
         $instancia = new $caminho;
+        $validacaoAgz = new ValidacaoAgz();
         $resultado = [];
-        $instanciaPadrao = new \Arquivo\ArquivoPadrao();
+        $instanciaPadrao = new ArquivoPadrao();
         $modeloA = $instancia->segmentoA();
         $modeloADefault = $instancia->segmentoADefault();
+        $modeloAValidacao = $instancia->segmentoAValidacao();
         $segmentoA = [];
         foreach ($modeloA as $key => $especificacoes) {
-            $valorNaoTratadoA = $this->segmentoA[$key];
-            if(empty($valorNaoTratadoA)and(isset($modeloADefault[$key]))){
-                $valorNaoTratadoA = $modeloADefault[$key];
+            $valor = $this->segmentoA[$key];
+            if (empty($valor)and ( isset($modeloADefault[$key]))) {
+                $valor = $modeloADefault[$key];
             }
-            $segmentoA[] = $instanciaPadrao->tratarDados($especificacoes, $valorNaoTratadoA);
+            if (isset($modeloAValidacao[$key])) {
+                $valor = $instanciaPadrao->tratarDados($especificacoes, $valor);
+                $validacaoAgz->{$modeloAValidacao[$key]}($valor, $key);
+            }
+            $segmentoA[] = $valor;
         }
         $resultado[] = $segmentoA;
         
         $modeloG = $instancia->segmentoG();
-        foreach($this->segmentoG as $segmento) {
+        $modeloGValidacao = $instancia->segmentoGValidacao();
+        foreach ($this->segmentoG as $segmento) {
             $segmentoG = [];
             foreach ($modeloG as $key => $especificacoes) {
-                $segmentoG[] = $instanciaPadrao->tratarDados($especificacoes, $segmento[$key]); 
+                $valor = $segmento[$key];
+                if(isset($modeloGValidacao[$key])){
+                    $valor = $instanciaPadrao->tratarDados($especificacoes, $valor);
+                    $validacaoAgz->{$modeloGValidacao[$key]}($valor, $key);
+                }
+                $segmentoG[] = $valor;
             }
-            $resultado[]= $segmentoG;
+            $resultado[] = $segmentoG;
         }
         $modeloZ = $instancia->segmentoZ();
-        
-        $segmentoZ= [];
+
+        $segmentoZ = [];
         foreach ($modeloZ as $key => $especificacoes) {
             $segmentoZ[] = $instanciaPadrao->tratarDados($especificacoes, $this->segmentoZ[$key]);
         }
         $resultado[] = $segmentoZ;
         return $instanciaPadrao->gravar($resultado, $caminhoArquivo, $nomeArquivo);
     }
+
 }

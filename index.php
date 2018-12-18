@@ -9,7 +9,7 @@ $segmentoA = [1 => "",
         4 => "CenterSis",
         5 => 789,
         6 => "Sicoob",
-        7 => 8092018,
+        7 => null,
         8 => 234567,
         9 => 02,
         10 => "Futuro",
@@ -438,7 +438,11 @@ $traillerArquivo = [1 => 756,
         8 => "",
     ];
 $instanciaCnab240->setTraillerArquivo($traillerArquivo);
-
-$instanciaAgz->gerar("Agz02", "arquivoAgz02.txt");
-$instanciaCnab240->gerar("Sicoob081", "arquivoSicoob081.txt");
+try{
+    $instanciaAgz->gerar("Agz02", "arquivoAgz02.txt");
+//$instanciaCnab240->gerar("Sicoob081", "arquivoSicoob081.txt");
 echo "Hello";
+} catch (\Exception $ex) {
+    echo "Erro: ".$ex->getMessage();
+}
+

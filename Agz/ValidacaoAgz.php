@@ -8,8 +8,8 @@ class ValidacaoAgz extends ArquivoValidacao{
     
     public function validaFormaPagamento($opcao, $posicao) {
         $opcoes = ["1", "2", "3", "4", "5"];
-        if($opcao !== array_search($opcao, $opcoes)){
-       throw new Exception("Posição ".$posicao." inválida");
+        if(array_search(trim($opcao), $opcoes)===false){
+       throw new \Exception("Posição ".$posicao." inválida, informado: ".$opcao);
         }
     }
 }
