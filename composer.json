@@ -1,0 +1,14 @@
+{
+    "name": "guilherme/gerador",
+    "description": "Gerador de Arquivos",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Guilherme.Ladeia",
+            "email": "gui.ladeia.gl@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
