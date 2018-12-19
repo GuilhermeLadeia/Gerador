@@ -9,8 +9,6 @@ class ArquivoPadrao {
         $arquivoAberto = fopen($caminhoAbsoluto, "w+");
         foreach ($resultado as $value) {
             $linha = '';
-            
-            
             foreach ($value as $dados) {
                 $linha.=$dados;
             }
@@ -43,13 +41,4 @@ class ArquivoPadrao {
             return $caminho . "/" . $nomeArquivo;
         }
     }
-
-    public function calcularQuantRegistros($nomeArquivo) {
-        $array_file = file($nomeArquivo);
-        while(list($line_num,$line)=  each($array_file)){
-            $linha++;
-        }
-        return $linha;
-    }
-
 }

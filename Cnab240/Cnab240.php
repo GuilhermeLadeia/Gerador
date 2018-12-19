@@ -60,7 +60,8 @@ class Cnab240 {
         $resultado = [];
         $instanciaPadrao = new ArquivoPadrao();
         $validacaoCnab = new ValidacaoCnab240();
-
+        $contalinhas = 4;
+        $somaValor = 0;
         $modeloHeaderArqDefault = $instancia->headerArquivoDefault();
         $modeloHeaderArqValidacao = $instancia->headerArquivoValidacao();
         $modeloHeaderArquivo = $instancia->headerArquivo();
@@ -107,6 +108,7 @@ class Cnab240 {
         foreach ($this->segmentoP as $keySegmentoP => $dadosSegmentoP) {
             $segmentoP = [];
             foreach ($modeloSegmentoP as $keyModeloP => $especificacoesModeloP) {
+                $somaValor = $dadosSegmentoP[21] + $dadosSegmentoP[33] + $dadosSegmentoP[34] + $somaValor;
                 $valorP = $dadosSegmentoP[$keyModeloP];
                 if (empty($valorP)and ( isset($modeloSegmentoPDefault[$keyModeloP]))) {
                     $valorP = $modeloSegmentoPDefault[$keyModeloP];
@@ -117,6 +119,7 @@ class Cnab240 {
                 }
                 $segmentoP[] = $valorP;
             }
+            $contalinhas++;
             $segmentoQ = [];
             foreach ($modeloSegmentoQ as $keyModeloQ => $especificacoesModeloQ) {
                 $valorQ = $this->segmentoQ[$keySegmentoP][$keyModeloQ];
@@ -129,9 +132,11 @@ class Cnab240 {
                 }
                 $segmentoQ[] = $valorQ;
             }
+            $contalinhas++;
             if ($this->segmentoR) {
                 $segmentoR = [];
                 foreach ($modeloSegmentoR as $keyModeloR => $especificacoesModeloR) {
+                    $somaValor = $this->segmentoR[$keySegmentoP][16] + $somaValor;
                     $valorR = $this->segmentoR[$keySegmentoP][$keyModeloR];
                     if (empty($valorR)and ( isset($modeloSegmentoRDefault[$keyModeloR]))) {
                         $valorR = $modeloSegmentoRDefault[$keyModeloR];
@@ -142,7 +147,9 @@ class Cnab240 {
                     }
                     $segmentoR[] = $valorR;
                 }
+                $contalinhas++;
             }
+            
             $resultado[] = $segmentoP;
             $resultado[] = $segmentoQ;
             if ($this->segmentoR) {
@@ -155,6 +162,9 @@ class Cnab240 {
         $modeloTraillerLoteValidacao = $instancia->traillerLoteValidacao();
         $traillerLote = [];
         foreach ($modeloTraillerLote as $key => $especificacoes) {
+            $this->traillerLote[7] = $somaValor;
+            $this->traillerLote[9] = $somaValor;
+            $this->traillerLote[13] = $somaValor;
             $valor = $this->traillerLote[$key];
             if (empty($valor)and ( isset($modeloTraillerLoteDefault[$key]))) {
                 $valor = $modeloTraillerLoteDefault[$key];
@@ -172,6 +182,7 @@ class Cnab240 {
         $modeloTraillerArquivoValidacao = $instancia->traillerArquivoValidacao();
         $traillerArquivo = [];
         foreach ($modeloTraillerArquivo as $key => $especificacoes) {
+            $this->traillerArquivo[6] = $contalinhas;
             $valor = $this->traillerArquivo[$key];
             if (empty($valor)and ( isset($modeloTraillerArquivoDefault[$key]))) {
                 $valor = $modeloTraillerArquivoDefault[$key];
