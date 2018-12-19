@@ -210,6 +210,7 @@ class Sicoob081 {
             7=>"validaMovimentoRemessa",
             8=>"validaOpcao1e2",
             13=>"validaCep",
+            14=>"validaSufixoCep",
             16=>"validaUf",
             17=>"validaOpcao1e2",
         ];

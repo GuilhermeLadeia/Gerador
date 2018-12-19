@@ -7,8 +7,6 @@ class ArquivoPadrao {
     public function gravar($resultado, $caminho, $nomeArquivo) {
         $caminhoAbsoluto = $this->tratarCaminho($caminho, $nomeArquivo);
         $arquivoAberto = fopen($caminhoAbsoluto, "w+");
-        echo "<pre>";
-        print_r($resultado);
         foreach ($resultado as $value) {
             $linha = '';
             
@@ -46,15 +44,12 @@ class ArquivoPadrao {
         }
     }
 
-    /*public function calcularQuantRegistros($nomeArquivo, $caminho) {
-        $caminhoAbsoluto = $this->tratarCaminho($caminho, $nomeArquivo);
-        $linhas = 0;
-        $arquivo = fopen($caminhoAbsoluto, 'r');
-        while (!feof($arquivo)) {
-            fgets($arquivo);
-            $linhas++;
+    public function calcularQuantRegistros($nomeArquivo) {
+        $array_file = file($nomeArquivo);
+        while(list($line_num,$line)=  each($array_file)){
+            $linha++;
         }
-        fclose($arquivo);
-    }*/ 
+        return $linha;
+    }
 
 }

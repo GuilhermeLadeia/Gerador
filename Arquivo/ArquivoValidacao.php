@@ -17,7 +17,7 @@ class ArquivoValidacao {
             if (strlen($ano) < 4) {
                 throw new \Exception("Posição " . $posicao . " inválida");
             } else {
-                if (checkdate( $mes, $dia, $ano)===false) {
+                if (checkdate($mes, $dia, $ano) === false) {
                     throw new \Exception("Posição " . $posicao . " inválida");
                 }
             }
@@ -70,12 +70,25 @@ class ArquivoValidacao {
         }
     }
 
+    public function validaTamanho($string, $tamanho, $posicao) {
+        $string = trim($string);
+        if (strlen($string) != $tamanho) {
+            throw new \Exception("Posição " . $posicao . " inválida");
+        }
+    }
+
     public function validaCep($cep, $posicao) {
-//        $cep = trim($cep);
-//        $avaliaCep = ereg("^[0-9]{5}-[0-9]{3}$", $cep);
-//        if (!$avaliaCep) {
-//            throw new \Exception("Posição " . $posicao . " inválida");
-//        }
+        $this->validaTamanho($cep, 5, $posicao);
+        if (preg_match('/[0-9]{5,5}?$/', $cep)===FALSE) {
+            throw new \Exception("Posição " . $posicao . " inválida");
+        }
+    }
+    
+    public function validaSufixoCep($sufixo, $posicao){
+        $this->validaTamanho($sufixo, 3, $posicao);
+        if (preg_match('/[0-9]{3}?$/', $sufixo)===FALSE) {
+            throw new \Exception("Posição " . $posicao . " inválida");
+        }
     }
 
     public function validaUf($opcao, $posicao) {
@@ -86,16 +99,8 @@ class ArquivoValidacao {
             "PI", "PR", "RJ", "RN",
             "RO", "RR", "RS", "SC",
             "SE", "SP", "TO"];
-        if (array_search($opcao, $opcoes)===false) {
+        if (array_search($opcao, $opcoes) === false) {
             throw new \Exception("Posição " . $posicao . " inválida");
         }
     }
-
-    public function validaLimiteCarac($valor, $tamanho, $posicao) {
-        $contString = strlen($valor);
-        if ($contString > $tamanho) {
-            return substr($valor, 0, $tamanho);
-        }
-    }
-
 }

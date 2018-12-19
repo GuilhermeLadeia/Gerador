@@ -439,9 +439,9 @@ $traillerArquivo = [1 => 756,
     ];
 $instanciaCnab240->setTraillerArquivo($traillerArquivo);
 try{
-    //$instanciaAgz->gerar("Agz02", "arquivoAgz02.txt");
+    $instanciaAgz->gerar("Agz02", "arquivoAgz02.txt");
     $instanciaCnab240->gerar("Sicoob081", "arquivoSicoob081.txt");
-echo "Hello";
+echo "Arquivo Gerado";
 } catch (\Exception $ex) {
     echo "Erro: ".$ex->getMessage();
 }
