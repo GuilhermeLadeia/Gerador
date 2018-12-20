@@ -103,5 +103,13 @@ class Util {
     public function adicionarEspacosDir($str, $tamanho) {
         return str_pad($str, $tamanho, ' ', STR_PAD_RIGHT);
     }
+    
+    public function formataNumDecimais($str){
+        $carac = array(
+            '.' => '',
+            ',' => '',
+        );
+        return strtr($str, $carac);
+    }
 
 }

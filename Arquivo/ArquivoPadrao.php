@@ -21,7 +21,9 @@ class ArquivoPadrao {
         $instancia = new \Arquivo\Util();
         if ($especificacoes[1] == 'num') {
             $valor = $instancia->adicionarZerosEsq($valor, $especificacoes[0]);
-        } else {
+            $valor = $instancia->formataNumDecimais($valor);
+        }
+        else {
             $valor = $instancia->removerCaracEspeciais($valor);
             $valor = $instancia->removerAcentos($valor);
             $valor = $instancia->converterMaiusculo($valor);
@@ -39,6 +41,12 @@ class ArquivoPadrao {
             return $caminho . "\\" . $nomeArquivo;
         } else {
             return $caminho . "/" . $nomeArquivo;
+        }
+    }
+    
+    public function verificaPermissaoTxt($filename){
+         if (is_writable($filename)===false){
+            throw new \Exception("O arquivo $filename não possui permissão de escrita");
         }
     }
 }
