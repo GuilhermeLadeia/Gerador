@@ -74,7 +74,6 @@ class Util {
             '@' => '',
             '#' => '',
             '$' => '',
-            '%' => '',
             '&' => '',
             '*' => '',
             'ª' => '',
@@ -88,9 +87,7 @@ class Util {
             '^' => '',
             '~' => '',
             '_' => '',
-            '-' => '',
             '=' => '',
-            '+' => '',
             '§' => ''
         );
         return strtr($str, $carac);
@@ -101,10 +98,16 @@ class Util {
     }
 
     public function adicionarEspacosDir($str, $tamanho) {
-        return str_pad($str, $tamanho, ' ', STR_PAD_RIGHT);
+        $len = strlen($str);
+        if($len<=$tamanho){
+            return str_pad($str, $tamanho, ' ', STR_PAD_RIGHT);
+        }elseif($len>$tamanho){
+            return substr($str,0,$tamanho);
+        }
+        
     }
-    
-    public function formataNumDecimais($str){
+
+    public function formataNumDecimais($str) {
         $carac = array(
             '.' => '',
             ',' => '',

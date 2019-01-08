@@ -53,7 +53,7 @@ class Agz {
             $segmentoA[] = $valor;
         }
         $resultado[] = $segmentoA;
-        
+
         $modeloG = $instancia->segmentoG();
         $modeloGValidacao = $instancia->segmentoGValidacao();
         foreach ($this->segmentoG as $segmento) {
@@ -62,7 +62,7 @@ class Agz {
                 $somaValor = $segmento[6] + $somaValor;
                 $valor = $segmento[$key];
                 $valor = $instanciaPadrao->tratarDados($especificacoes, $valor);
-                if(isset($modeloGValidacao[$key])){
+                if (isset($modeloGValidacao[$key])) {
                     $validacaoAgz->{$modeloGValidacao[$key]}($valor, $key);
                 }
                 $segmentoG[] = $valor;
@@ -77,7 +77,6 @@ class Agz {
             $this->segmentoZ[2] = $contaLinhas;
             $this->segmentoZ[3] = $somaValor;
             $segmentoZ[] = $instanciaPadrao->tratarDados($especificacoes, $this->segmentoZ[$key]);
-            
         }
         $resultado[] = $segmentoZ;
         return $instanciaPadrao->gravar($resultado, $caminhoArquivo, $nomeArquivo);

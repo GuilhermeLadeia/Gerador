@@ -2,10 +2,13 @@
 
 namespace Arquivo;
 
+use Arquivo\Util;
+
 class ArquivoPadrao {
 
     public function gravar($resultado, $caminho, $nomeArquivo) {
         $caminhoAbsoluto = $this->tratarCaminho($caminho, $nomeArquivo);
+        //$this->verificaPermissaoTxt($nomeArquivo);
         $arquivoAberto = fopen($caminhoAbsoluto, "w+");
         foreach ($resultado as $value) {
             $linha = '';
@@ -18,10 +21,10 @@ class ArquivoPadrao {
     }
 
     public function tratarDados($especificacoes, $valor) {
-        $instancia = new \Arquivo\Util();
+        $instancia = new Util();
         if ($especificacoes[1] == 'num') {
-            $valor = $instancia->adicionarZerosEsq($valor, $especificacoes[0]);
             $valor = $instancia->formataNumDecimais($valor);
+            $valor = $instancia->adicionarZerosEsq($valor, $especificacoes[0]);
         }
         else {
             $valor = $instancia->removerCaracEspeciais($valor);
@@ -45,7 +48,7 @@ class ArquivoPadrao {
     }
     
     public function verificaPermissaoTxt($filename){
-         if (is_writable($filename)===false){
+         if (is_writable($filename)===true){
             throw new \Exception("O arquivo $filename não possui permissão de escrita");
         }
     }

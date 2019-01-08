@@ -11,9 +11,9 @@ class ArquivoValidacao {
         if (strlen($dataFormatada) != 8) {
             throw new \Exception("Posição " . $posicao . " inválida");
         } else {
-            $ano = substr($dataFormatada, 0, 4);
-            $mes = substr($dataFormatada, 4, 2);
-            $dia = substr($dataFormatada, 6, 2);
+            $dia = substr($dataFormatada, 0, 2);
+            $mes = substr($dataFormatada, 2, 2);
+            $ano = substr($dataFormatada, 4, 4);
             if (strlen($ano) < 4) {
                 throw new \Exception("Posição " . $posicao . " inválida");
             } else {
@@ -79,14 +79,14 @@ class ArquivoValidacao {
 
     public function validaCep($cep, $posicao) {
         $this->validaTamanho($cep, 5, $posicao);
-        if (preg_match('/[0-9]{5,5}?$/', $cep)===FALSE) {
+        if (preg_match('/[0-9]{5,5}?$/', $cep) === FALSE) {
             throw new \Exception("Posição " . $posicao . " inválida");
         }
     }
-    
-    public function validaSufixoCep($sufixo, $posicao){
+
+    public function validaSufixoCep($sufixo, $posicao) {
         $this->validaTamanho($sufixo, 3, $posicao);
-        if (preg_match('/[0-9]{3}?$/', $sufixo)===FALSE) {
+        if (preg_match('/[0-9]{3}?$/', $sufixo) === FALSE) {
             throw new \Exception("Posição " . $posicao . " inválida");
         }
     }
@@ -103,4 +103,5 @@ class ArquivoValidacao {
             throw new \Exception("Posição " . $posicao . " inválida");
         }
     }
+
 }
