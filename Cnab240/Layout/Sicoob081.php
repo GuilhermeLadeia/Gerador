@@ -45,6 +45,7 @@ class Sicoob081 {
     public function headerArquivoValidacao() {
         return [
             5 => "validaOpcao1e2",
+            6 => "validaCpfeCnpj",
             17 => "validaData",
         ];
     }
@@ -77,10 +78,15 @@ class Sicoob081 {
         ];
     }
 
-    public function headerLoteDefault() {
+    public function headerLoteDefault($array) {
         return [
-            1 => 756,
+            1 => $array[0],
             5 => 01,
+            10 => $array[5],
+            12 => $array[7],
+            13 => $array[8],
+            14 => $array[9],
+            15 => $array[10],
             21 => date('dmY'),
             22 => 00000000,
         ];
@@ -89,6 +95,7 @@ class Sicoob081 {
     public function headerLoteValidacao() {
         return [
             9 => "validaOpcao1e2",
+            10 => "validaCpfeCnpj",
             21 => "validaData",
         ];
     }
@@ -140,11 +147,15 @@ class Sicoob081 {
         ];
     }
 
-    public function segmentoPDefault() {
+    public function segmentoPDefault($array) {
         return [
-            1 => 756,
+            1 => $array[0],
             3 => 3,
             5 => "P",
+            8 => $array[7],
+            9 => $array[8],
+            10 => $array[9],
+            11 => $array[10],
             15 => 0,
             22 => 00000,
             41 => 0000000000,
@@ -159,8 +170,15 @@ class Sicoob081 {
             24 => "validaEspecieTitulo",
             25 => "validaIdTitulo",
             26 => "validaData",
+            28 => "validaData",
+            28 => "validaJuroseDescData",
+            29 => "validaJurosDescValor",
             27 => "validaCodigo",
+            31 => "validaData",
+            31 => "validaJuroseDescData",
+            32 => "validaJurosDescValor",
             36 => "validaCodigoProtesto",
+            36 => "validaCodigoProteMovi",
             40 => "codigoMoeda",
         ];
     }
@@ -192,9 +210,9 @@ class Sicoob081 {
         ];
     }
 
-    public function segmentoQDefault() {
+    public function segmentoQDefault($array) {
         return [
-            1 => 756,
+            1 => $array[0],
             3 => 3,
             5 => "Q",
         ];
@@ -204,10 +222,12 @@ class Sicoob081 {
         return [
             7 => "validaMovimentoRemessa",
             8 => "validaOpcao1e2",
+            9 => "validaCpfeCnpj",
             13 => "validaCep",
             14 => "validaSufixoCep",
             16 => "validaUf",
             17 => "validaOpcao1e2",
+            18 => "validaCpfeCnpj",
         ];
     }
 
@@ -245,9 +265,9 @@ class Sicoob081 {
         ];
     }
 
-    public function segmentoRDefault() {
+    public function segmentoRDefault($array) {
         return [
-            1 => 756,
+            1 => $array[0],
             3 => 3,
             5 => "R",
             21 => 00000000,
@@ -262,8 +282,17 @@ class Sicoob081 {
         return [
             7 => "validaMovimentoRemessa",
             8 => "validaCodigo",
+            9 => "validaData",
+            9 => "validaJuroseDescData",
+            10 => "validaJurosDescValor",
             11 => "validaCodigo",
+            12 => "validaData",
+            12 => "validaJuroseDescData",
+            13 => "validaJurosDescValor",
             14 => "validaCodigo",
+            15 => "validaData",
+            15 => "validaJuroseDescData",
+            16 => "validaJurosDescValor",
         ];
     }
 
@@ -287,9 +316,9 @@ class Sicoob081 {
         ];
     }
 
-    public function traillerLoteDefault() {
+    public function traillerLoteDefault($array) {
         return [
-            1 => 756,
+            1 => $array[0],
             3 => 5,
         ];
     }
@@ -311,9 +340,9 @@ class Sicoob081 {
         ];
     }
 
-    public function traillerArquivoDefault() {
+    public function traillerArquivoDefault($array) {
         return [
-            1 => 756,
+            1 => $array[0],
             5 => 1,
         ];
     }

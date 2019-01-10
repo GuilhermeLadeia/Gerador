@@ -114,5 +114,10 @@ class Util {
         );
         return strtr($str, $carac);
     }
-
+        
+    public function validaTamanhoNum($valor, $tamanho, $posicao){
+        if(strlen($valor)>$tamanho){
+            throw new \Exception("Posição " . $posicao . " inválida");
+        }
+    }
 }

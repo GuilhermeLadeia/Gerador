@@ -25,6 +25,10 @@ class ArquivoValidacao {
     }
 
     public function validaCpf($cpf, $posicao) {
+        echo strlen($cpf);
+        if(strlen($cpf)==15){
+            $cpf = substr($cpf,-14,11);
+        }
         $cpf = preg_replace('/[^0-9]/is', '', $cpf);
         if (strlen($cpf) != 11) {
             throw new \Exception("Posição " . $posicao . " inválida");
@@ -41,13 +45,15 @@ class ArquivoValidacao {
                 throw new \Exception("Posição " . $posicao . " inválida");
             }
         }
-        return true;
     }
 
     public function validaCnpj($cnpj, $posicao) {
         $cnpj = preg_replace('/[^0-9]/', '', (string) $cnpj);
+        if (strlen($cnpj) == 15) {
+            $cnpj = substr($cnpj,-14,14);
+        }
         if (strlen($cnpj) != 14) {
-            throw new \Exception("Posição " . $posicao . " inválida");
+                throw new \Exception("Posição " . $posicao . " inválida");
         }
         for ($i = 0, $j = 5, $soma = 0; $i < 12; $i++) {
             $soma += $cnpj{$i} * $j;
@@ -103,5 +109,4 @@ class ArquivoValidacao {
             throw new \Exception("Posição " . $posicao . " inválida");
         }
     }
-
 }
