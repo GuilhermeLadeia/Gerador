@@ -146,4 +146,22 @@ class ValidacaoCnab240 extends ArquivoValidacao {
         }
     }
     
+    public function validaVariavel($valor, $key, $arrayDefault, $arrayDinamico){
+        if($valor=== "" or $valor === null){
+            if(isset($arrayDefault[$key])){
+                $valor = $arrayDefault[$key];
+                return $valor;
+            }else{
+                if(isset($arrayDinamico[$key])){
+                    $valor = $arrayDinamico[$key];
+                    return $valor;
+                }else{
+                    throw new \Exception("Posição " . $key . " não preenchida");
+                }
+            }
+        }else{
+            return $valor;
+        }
+    }
+    
 }

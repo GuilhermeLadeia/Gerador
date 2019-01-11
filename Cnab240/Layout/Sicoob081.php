@@ -35,10 +35,21 @@ class Sicoob081 {
 
     public function headerArquivoDefault() {
         return [
+            2 => 0000,
             3 => 0,
+            4 => "",
+            7 => "",
+            9 => " ",
+            12 => "",
+            15 => "",
+            16 => 1,
             17 => date('dmY'),
             18 => date('his'),
             20 => 81,
+            21 => 00000,
+            22 => "",
+            23 => "",
+            24 => "",
         ];
     }
 
@@ -48,6 +59,10 @@ class Sicoob081 {
             6 => "validaCpfeCnpj",
             17 => "validaData",
         ];
+    }
+
+    public function headerArquivoDinamico() {
+        return [];
     }
 
     public function headerLote() {
@@ -81,14 +96,28 @@ class Sicoob081 {
     public function headerLoteDefault($array) {
         return [
             1 => $array[0],
+            2 => 0001,
+            3 => 1,
+            4 => "R",
             5 => 01,
+            6 => "",
+            7 => "040",
+            8 => "",
+            9 => $array[4],
             10 => $array[5],
+            11 => "",
             12 => $array[7],
             13 => $array[8],
             14 => $array[9],
             15 => $array[10],
+            16 => "",
+            17 => $array[12],
+            18 => "",
+            19 => "",
+            20 => 0,
             21 => date('dmY'),
             22 => 00000000,
+            23 => "",
         ];
     }
 
@@ -98,6 +127,10 @@ class Sicoob081 {
             10 => "validaCpfeCnpj",
             21 => "validaData",
         ];
+    }
+
+    public function headerLoteDinamico() {
+        return [];
     }
 
     public function segmentoP() {
@@ -150,15 +183,29 @@ class Sicoob081 {
     public function segmentoPDefault($array) {
         return [
             1 => $array[0],
+            2 => 0001,
             3 => 3,
             5 => "P",
+            6 => "",
             8 => $array[7],
             9 => $array[8],
             10 => $array[9],
             11 => $array[10],
+            12 => "",
             15 => 0,
+            16 => "",
             22 => 00000,
+            23 => "",
+            26 => date('dmY'),
+            31 => 0,
+            32 => 0,
+            33 => 0,
+            34 => 0,
+            37 => 0,
+            38 => 0,
+            39 => "",
             41 => 0000000000,
+            42 => "",
         ];
     }
 
@@ -181,6 +228,10 @@ class Sicoob081 {
             36 => "validaCodigoProteMovi",
             40 => "codigoMoeda",
         ];
+    }
+
+    public function segmentoPDinamico() {
+        return [];
     }
 
     public function segmentoQ() {
@@ -213,8 +264,14 @@ class Sicoob081 {
     public function segmentoQDefault($array) {
         return [
             1 => $array[0],
+            2 => 0001,
             3 => 3,
             5 => "Q",
+            6 => "",
+            17 => $array[4],
+            18 => $array[5],
+            21 => "",
+            22 => "",
         ];
     }
 
@@ -229,6 +286,10 @@ class Sicoob081 {
             17 => "validaOpcao1e2",
             18 => "validaCpfeCnpj",
         ];
+    }
+
+    public function segmentoQDinamico() {
+        return [];
     }
 
     public function segmentoR() {
@@ -268,13 +329,26 @@ class Sicoob081 {
     public function segmentoRDefault($array) {
         return [
             1 => $array[0],
+            2 => 0001,
             3 => 3,
             5 => "R",
+            6 => "",
+            9 => 0,
+            10 => 0,
+            12 => 0,
+            13 => 0,
+            17 => "",
+            19 => "",
+            20 => "",
             21 => 00000000,
             22 => 000,
             23 => 00000,
+            24 => "",
             25 => 00000000000000,
-            28 => 0
+            26 => "",
+            27 => "",
+            28 => 0,
+            29 => "",
         ];
     }
 
@@ -294,6 +368,10 @@ class Sicoob081 {
             15 => "validaJuroseDescData",
             16 => "validaJurosDescValor",
         ];
+    }
+
+    public function segmentoRDinamico() {
+        return [];
     }
 
     public function traillerLote() {
@@ -319,12 +397,29 @@ class Sicoob081 {
     public function traillerLoteDefault($array) {
         return [
             1 => $array[0],
+            2 => 0001,
             3 => 5,
+            4 => "",
+            8 => 0,
+            9 => 0,
+            10 => 0,
+            11 => 0,
+            12 => "0",
+            13 => 0,
+            14 => "",
+            15 => "",
         ];
     }
 
     public function traillerLoteValidacao() {
         return [];
+    }
+
+    public function traillerLoteDinamico($quanTitulos, $somaValor) {
+        return [
+            6 => $quanTitulos,
+            7 => $somaValor,
+        ];
     }
 
     public function traillerArquivo() {
@@ -343,12 +438,23 @@ class Sicoob081 {
     public function traillerArquivoDefault($array) {
         return [
             1 => $array[0],
+            2 => 9999,
+            3 => 9,
+            4 => "",
             5 => 1,
+            7 => 0,
+            8 => "",
         ];
     }
 
     public function traillerArquivoValidacao() {
         return [];
+    }
+
+    public function traillerArquivoDinamico($contaLinhas) {
+        return [
+            6 => $contaLinhas,
+        ];
     }
 
 }
