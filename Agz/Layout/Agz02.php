@@ -40,8 +40,8 @@ class Agz02 {
             3 => [8, 'texto'],
             4 => [8, 'texto'],
             5 => [44, 'texto'],
-            6 => [10, 'num'],
-            7 => [5, 'num'],
+            6 => [12, 'num'],
+            7 => [7, 'num'],
             8 => [8, 'num'],
             9 => [8, 'texto'],
             10 => [1, 'num'],
@@ -53,14 +53,14 @@ class Agz02 {
 
     public function segmentoGDefault() {
         return [
-            1 => 'G',
+            1 => "G",
         ];
     }
 
     public function segmentoGValidacao() {
         return [
             5 => "validaCodigoBarra",
-            11 => "validaFormaPagamento"
+            12 => "validaFormaPagamento"
         ];
     }
 

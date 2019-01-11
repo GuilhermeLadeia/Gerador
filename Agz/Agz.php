@@ -46,7 +46,7 @@ class Agz {
             if (empty($valor)and ( isset($modeloADefault[$key]))) {
                 $valor = $modeloADefault[$key];
             }
-            $valor = $instanciaPadrao->tratarDados($especificacoes, $valor);
+            $valor = $instanciaPadrao->tratarDados($especificacoes, $valor, $key);
             if (isset($modeloAValidacao[$key])) {
                 $validacaoAgz->{$modeloAValidacao[$key]}($valor, $key);
             }
@@ -55,13 +55,17 @@ class Agz {
         $resultado[] = $segmentoA;
 
         $modeloG = $instancia->segmentoG();
+        $modeloGDefault = $instancia->segmentoGDefault();
         $modeloGValidacao = $instancia->segmentoGValidacao();
         foreach ($this->segmentoG as $segmento) {
             $segmentoG = [];
+            $somaValor = $segmento[6] + $somaValor;
             foreach ($modeloG as $key => $especificacoes) {
-                $somaValor = $segmento[6] + $somaValor;
                 $valor = $segmento[$key];
-                $valor = $instanciaPadrao->tratarDados($especificacoes, $valor);
+                if (empty($valor)and ( isset($modeloGDefault[$key]))) {
+                $valor = $modeloGDefault[$key];
+                }
+                $valor = $instanciaPadrao->tratarDados($especificacoes, $valor, $key);
                 if (isset($modeloGValidacao[$key])) {
                     $validacaoAgz->{$modeloGValidacao[$key]}($valor, $key);
                 }
@@ -76,9 +80,10 @@ class Agz {
         foreach ($modeloZ as $key => $especificacoes) {
             $this->segmentoZ[2] = $contaLinhas;
             $this->segmentoZ[3] = $somaValor;
-            $segmentoZ[] = $instanciaPadrao->tratarDados($especificacoes, $this->segmentoZ[$key]);
+            $segmentoZ[] = $instanciaPadrao->tratarDados($especificacoes, $this->segmentoZ[$key], $key);
         }
         $resultado[] = $segmentoZ;
+        $validacaoAgz->validaTamanhoArray($resultado);
         return $instanciaPadrao->gravar($resultado, $caminhoArquivo, $nomeArquivo);
     }
 

@@ -4,26 +4,6 @@ namespace Arquivo;
 
 class ArquivoValidacao {
 
-    public function validaData($data, $posicao) {
-        $pontos = ["\\", "/", "-", "."];
-        $dataFormatada = str_replace($pontos, "", $data);
-
-        if (strlen($dataFormatada) != 8) {
-            throw new \Exception("Posição " . $posicao . " inválida");
-        } else {
-            $dia = substr($dataFormatada, 0, 2);
-            $mes = substr($dataFormatada, 2, 2);
-            $ano = substr($dataFormatada, 4, 4);
-            if (strlen($ano) < 4) {
-                throw new \Exception("Posição " . $posicao . " inválida");
-            } else {
-                if (checkdate($mes, $dia, $ano) === false) {
-                    throw new \Exception("Posição " . $posicao . " inválida");
-                }
-            }
-        }
-    }
-
     public function validaCpf($cpf, $posicao) {
         echo strlen($cpf);
         if(strlen($cpf)==15){
@@ -107,6 +87,24 @@ class ArquivoValidacao {
             "SE", "SP", "TO"];
         if (array_search($opcao, $opcoes) === false) {
             throw new \Exception("Posição " . $posicao . " inválida");
+        }
+    }
+    
+    public function validaVariavel($valor, $key, $arrayDefault, $arrayDinamico){
+        if($valor=== "" or $valor === null){
+            if(isset($arrayDefault[$key])){
+                $valor = $arrayDefault[$key];
+                return $valor;
+            }else{
+                if(isset($arrayDinamico[$key])){
+                    $valor = $arrayDinamico[$key];
+                    return $valor;
+                }else{
+                    throw new \Exception("Posição " . $key . " não preenchida");
+                }
+            }
+        }else{
+            return $valor;
         }
     }
 }

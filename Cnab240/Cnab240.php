@@ -205,6 +205,7 @@ class Cnab240 {
             $traillerArquivo[] = $valor;
         }
         $resultado[] = $traillerArquivo;
+        $validacaoCnab->validaTamanhoArray($resultado);
         return $instanciaPadrao->gravar($resultado, $caminhoArquivo, $nomeArquivo);
     }
 }

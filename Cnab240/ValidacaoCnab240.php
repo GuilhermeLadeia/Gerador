@@ -146,22 +146,37 @@ class ValidacaoCnab240 extends ArquivoValidacao {
         }
     }
     
-    public function validaVariavel($valor, $key, $arrayDefault, $arrayDinamico){
-        if($valor=== "" or $valor === null){
-            if(isset($arrayDefault[$key])){
-                $valor = $arrayDefault[$key];
-                return $valor;
-            }else{
-                if(isset($arrayDinamico[$key])){
-                    $valor = $arrayDinamico[$key];
-                    return $valor;
-                }else{
-                    throw new \Exception("Posição " . $key . " não preenchida");
-                }
+    public function validaTamanhoArray($array){
+        foreach ($array as $keySegmento => $segmento) {
+            $contagem = 0;
+            foreach ($segmento as $key => $valor) {
+                $quant = 0;
+                $quant = strlen($valor);
+                $contagem = $contagem + $quant;
             }
-        }else{
-            return $valor;
+            if(($contagem==240)===false){
+                throw new \Exception("O segmento $keySegmento não possui 240 caracteres");
+            }
         }
     }
     
+    public function validaData($data, $posicao) {
+        $pontos = ["\\", "/", "-", "."];
+        $dataFormatada = str_replace($pontos, "", $data);
+
+        if (strlen($dataFormatada) != 8) {
+            throw new \Exception("Posição " . $posicao . " inválida");
+        } else {
+            $dia = substr($dataFormatada, 0, 2);
+            $mes = substr($dataFormatada, 2, 2);
+            $ano = substr($dataFormatada, 4, 4);
+            if (strlen($ano) < 4) {
+                throw new \Exception("Posição " . $posicao . " inválida");
+            } else {
+                if (checkdate($mes, $dia, $ano) === false) {
+                    throw new \Exception("Posição " . $posicao . " inválida");
+                }
+            }
+        }
+    }
 }
