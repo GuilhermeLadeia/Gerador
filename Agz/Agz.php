@@ -40,12 +40,14 @@ class Agz {
         $modeloA = $instancia->segmentoA();
         $modeloADefault = $instancia->segmentoADefault();
         $modeloAValidacao = $instancia->segmentoAValidacao();
+        $modeloADinamico = $instancia->segmentoADinamico();
         $segmentoA = [];
         foreach ($modeloA as $key => $especificacoes) {
-            $valor = $this->segmentoA[$key];
-            if (empty($valor)and ( isset($modeloADefault[$key]))) {
-                $valor = $modeloADefault[$key];
+            $valor = "";
+            if (isset($this->segmentoA[$key])) {
+                $valor = $this->segmentoA[$key];
             }
+            $valor = $validacaoAgz->validaVariavel($valor, $key, $modeloADefault, $modeloADinamico);
             $valor = $instanciaPadrao->tratarDados($especificacoes, $valor, $key);
             if (isset($modeloAValidacao[$key])) {
                 $validacaoAgz->{$modeloAValidacao[$key]}($valor, $key);
@@ -53,34 +55,50 @@ class Agz {
             $segmentoA[] = $valor;
         }
         $resultado[] = $segmentoA;
-
+        $numRegistros = 0001;
         $modeloG = $instancia->segmentoG();
-        $modeloGDefault = $instancia->segmentoGDefault();
         $modeloGValidacao = $instancia->segmentoGValidacao();
-        foreach ($this->segmentoG as $segmento) {
+        $modeloGDinamico = $instancia->segmentoGDinamico();
+        foreach ($this->segmentoG as $keySegmento => $segmento) {
             $segmentoG = [];
             $somaValor = $segmento[6] + $somaValor;
+            if($keySegmento==0){
+                $modeloGDefault = $instancia->segmentoGDefault1($numRegistros);
+            }else{
+                $modeloGDefault = $instancia->segmentoGDefault($numRegistros, $resultado[1]);
+            }      
             foreach ($modeloG as $key => $especificacoes) {
-                $valor = $segmento[$key];
-                if (empty($valor)and ( isset($modeloGDefault[$key]))) {
-                $valor = $modeloGDefault[$key];
+                $valor = "";
+                if (isset($segmento[$key])) {
+                    $valor = $segmento[$key];
                 }
+                $valor = $validacaoAgz->validaVariavel($valor, $key, $modeloGDefault, $modeloGDinamico);
                 $valor = $instanciaPadrao->tratarDados($especificacoes, $valor, $key);
                 if (isset($modeloGValidacao[$key])) {
                     $validacaoAgz->{$modeloGValidacao[$key]}($valor, $key);
                 }
                 $segmentoG[] = $valor;
             }
+            $numRegistros++;
             $resultado[] = $segmentoG;
             $contaLinhas++;
         }
         $modeloZ = $instancia->segmentoZ();
-
+        $modeloZDefault = $instancia->segmentoZDefault();
+        $modeloZValidacao = $instancia->segmentoZValidacao();
+        $modeloZDinamico = $instancia->segmentoZDinamico($contaLinhas, $somaValor);
         $segmentoZ = [];
         foreach ($modeloZ as $key => $especificacoes) {
-            $this->segmentoZ[2] = $contaLinhas;
-            $this->segmentoZ[3] = $somaValor;
-            $segmentoZ[] = $instanciaPadrao->tratarDados($especificacoes, $this->segmentoZ[$key], $key);
+            $valor = "";
+            if (isset($this->segmentoZ[$key])) {
+                $valor = $this->segmentoZ[$key];
+            }
+            $valor = $validacaoAgz->validaVariavel($valor, $key, $modeloZDefault, $modeloZDinamico);
+            $valor = $instanciaPadrao->tratarDados($especificacoes, $valor, $key);
+            if (isset($modeloZValidacao[$key])) {
+                $validacaoAgz->{$modeloZValidacao[$key]}($valor, $key);
+            }
+            $segmentoZ[] = $valor;
         }
         $resultado[] = $segmentoZ;
         $validacaoAgz->validaTamanhoArray($resultado);

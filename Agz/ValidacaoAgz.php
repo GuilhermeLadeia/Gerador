@@ -7,10 +7,17 @@ use \Arquivo\ArquivoValidacao;
 class ValidacaoAgz extends ArquivoValidacao {
 
     public function validaFormaPagamento($opcao, $posicao) {
-        $opcoes = ["1", "2", "3", "4", "5"];
+        $opcoes = [1, 2, 3];
         if (array_search(trim($opcao), $opcoes) === false) {
             throw new \Exception("Posição " . $posicao . " inválida, informado: " . $opcao);
         }
+    }
+    
+    public function validaFormaArrecadacao($opcao, $posicao){
+       $opcoes = [1, 2, 3];
+        if (array_search($opcao, $opcoes) === false) {
+            throw new \Exception("Posição " . $posicao . " inválida");
+        } 
     }
     
     public function validaTamanhoArray($array){

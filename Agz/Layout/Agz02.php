@@ -23,7 +23,8 @@ class Agz02 {
         return [
             1 => 'A',
             7 => date('Ymd'),
-            9 => 02,
+            9 => 04,
+            10 => "",
         ];
     }
 
@@ -31,6 +32,10 @@ class Agz02 {
         return [
             7 => "validaData",
         ];
+    }
+
+    public function segmentoADinamico() {
+        return[];
     }
 
     public function segmentoG() {
@@ -50,17 +55,42 @@ class Agz02 {
             13 => [9, 'texto'],
         ];
     }
-
-    public function segmentoGDefault() {
+    
+    public function segmentoGDefault1($numRegistros){
         return [
             1 => "G",
+            8 => $numRegistros,
+            11 => "",
+            13 => "",
+        ];
+    }
+    
+    public function segmentoGDefault($numRegistros, $array) {      
+        return [
+            1 => "G",
+            2 => $array[1],
+            3 => $array[2],
+            4 => $array[3],
+            8 => $numRegistros,
+            9 => $array[8],
+            10 => $array[9],
+            11 => "",
+            12 => $array[11],
+            13 => "",
         ];
     }
 
     public function segmentoGValidacao() {
         return [
             5 => "validaCodigoBarra",
+            10 => "validaFormaArrecadacao",
             12 => "validaFormaPagamento"
+        ];
+    }
+
+    public function segmentoGDinamico() {
+        return[
+            
         ];
     }
 
@@ -75,7 +105,20 @@ class Agz02 {
 
     public function segmentoZDefault() {
         return [
-            1 => 'Z',
+            1 => "Z",
+            4 => "",
+        ];
+    }
+
+    public function segmentoZValidacao() {
+        return [
+        ];
+    }
+
+    public function segmentoZDinamico($contaLinhas, $somaValor) {
+        return[
+            2 => $contaLinhas,
+            3 => $somaValor,
         ];
     }
 
