@@ -9,10 +9,8 @@
             "email": "gui.ladeia.gl@gmail.com"
         }
     ],
-    "require": {},
-	"autoload": {
-    "psr-4": {
-        "vendor\\guilhermeladeia\\gerador\\": "src/"
-    }
+    "minimum-stability": "dev",
+	"prefer-stable": true,
+    "require": {}
 }
-}
+
