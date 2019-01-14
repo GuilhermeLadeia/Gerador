@@ -1,7 +1,9 @@
 <?php
-spl_autoload_register(function ($class_name) {
-    include $class_name . '.php';
-});
+function my_autoloader($class) {
+    include 'vendor/guilhermeladeia/gerador/' . $class . '.php';
+}
+
+spl_autoload_register('my_autoloader');
 $instanciaAgz = new Agz\Agz();
 $segmentoA = [
         2 => 2,
