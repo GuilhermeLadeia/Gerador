@@ -12,7 +12,7 @@
     "require": {},
 	"autoload": {
     "psr-4": {
-        "vendor\\guilhermeladeia\\gerador": "src/"
+        "vendor\\guilhermeladeia\\gerador\\": "src/"
     }
 }
 }
