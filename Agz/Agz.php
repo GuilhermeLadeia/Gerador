@@ -42,6 +42,9 @@ class Agz {
         $modeloAValidacao = $instancia->segmentoAValidacao();
         $modeloADinamico = $instancia->segmentoADinamico();
         $segmentoA = [];
+        $segmentosObrigatorios = $instancia->segmentosObrigatorios();
+        $validacaoAgz->validaSegmentosObrigatorios($this->segmentoA, "A", $segmentosObrigatorios);
+        $validacaoAgz->validaSegmentosObrigatorios($this->segmentoG, "G", $segmentosObrigatorios);
         foreach ($modeloA as $key => $especificacoes) {
             $valor = "";
             if (isset($this->segmentoA[$key])) {

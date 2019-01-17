@@ -5,9 +5,8 @@ namespace Arquivo;
 class ArquivoValidacao {
 
     public function validaCpf($cpf, $posicao) {
-        echo strlen($cpf);
-        if(strlen($cpf)==15){
-            $cpf = substr($cpf,-14,11);
+        if(strlen($cpf)==14||15){
+            $cpf = substr($cpf,3,11);
         }
         $cpf = preg_replace('/[^0-9]/is', '', $cpf);
         if (strlen($cpf) != 11) {
@@ -30,7 +29,7 @@ class ArquivoValidacao {
     public function validaCnpj($cnpj, $posicao) {
         $cnpj = preg_replace('/[^0-9]/', '', (string) $cnpj);
         if (strlen($cnpj) == 15) {
-            $cnpj = substr($cnpj,-14,14);
+            $cnpj = substr($cnpj,1,14);
         }
         if (strlen($cnpj) != 14) {
                 throw new \Exception("Posição " . $posicao . " inválida");
@@ -52,6 +51,13 @@ class ArquivoValidacao {
 
     public function validaCodigoBarra($codigoBarra, $posicao) {
         if (strlen($codigoBarra) != 44) {
+            throw new \Exception("Posição " . $posicao . " inválida");
+        }
+    }
+    
+    public function validaIdTitulo($opcao, $posicao) {
+        $opcoes = ["A", "N"];
+        if (array_search($opcao, $opcoes) === false) {
             throw new \Exception("Posição " . $posicao . " inválida");
         }
     }
@@ -90,6 +96,28 @@ class ArquivoValidacao {
         }
     }
     
+    public function validaOpcao1e2($opcao, $posicao) {
+        $opcoes = [1, 2];
+        if (array_search($opcao, $opcoes) === false) {
+            throw new \Exception("Posição " . $posicao . " inválida");
+        }
+    }
+    
+    public function validaCodigo($opcao, $posicao) {
+        $opcoes = [0, 1, 2];
+        if (array_search($opcao, $opcoes) === false) {
+            throw new \Exception("Posição " . $posicao . " inválida");
+        }
+    }
+    
+    public function validaCpfeCnpj($valor, $posicao, $array) {
+        if($array[$posicao-2] == 1){
+            $this->validaCpf($valor, $posicao);
+        }else{
+            $this->validaCnpj($valor, $posicao);
+        }
+    }
+    
     public function validaVariavel($valor, $key, $arrayDefault, $arrayDinamico){
         if($valor=== "" or $valor === null){
             if(isset($arrayDefault[$key])){
@@ -105,6 +133,16 @@ class ArquivoValidacao {
             }
         }else{
             return $valor;
+        }
+    }
+    
+    public function validaSegmentosObrigatorios($segmento, $tipo, $segObrig){
+        foreach ($segObrig  as $tipoObrig) {
+            if($tipoObrig==$tipo){
+                if(empty($segmento)){
+                    throw new \Exception("O Segmento " . $tipo . " não foi preenchido");
+                }
+            }
         }
     }
 }

@@ -121,5 +121,9 @@ class Agz02 {
             3 => $somaValor,
         ];
     }
+    
+    public function segmentosObrigatorios() {
+        return ["A", "G", "Z"];
+    }
 
 }

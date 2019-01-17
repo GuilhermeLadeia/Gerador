@@ -71,7 +71,6 @@ class Util {
     public function removerCaracEspeciais($str) {
         $carac = array(
             '!' => '',
-            '@' => '',
             '#' => '',
             '$' => '',
             '&' => '',

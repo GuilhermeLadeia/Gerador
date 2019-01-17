@@ -456,5 +456,11 @@ class Sicoob081 {
             6 => $contaLinhas,
         ];
     }
+    
+    public function segmentosObrigatorios(){
+        return [
+            0, 1, "P", "Q", 5, 9, 
+        ];
+    }
 
 }

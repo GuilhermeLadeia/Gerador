@@ -6,29 +6,8 @@ use \Arquivo\ArquivoValidacao;
 
 class ValidacaoCnab240 extends ArquivoValidacao {
 
-    public function validaOpcao1e2($opcao, $posicao) {
-        $opcoes = [1, 2];
-        if (array_search($opcao, $opcoes) === false) {
-            throw new \Exception("Posição " . $posicao . " inválida");
-        }
-    }
-
     public function validaMovimentoRemessa($opcao, $posicao) {
         $opcoes = ["01", "02", "06", "09", "10", "11", "31"];
-        if (array_search($opcao, $opcoes) === false) {
-            throw new \Exception("Posição " . $posicao . " inválida");
-        }
-    }
-
-    public function validaIdTitulo($opcao, $posicao) {
-        $opcoes = ["A", "N"];
-        if (array_search($opcao, $opcoes) === false) {
-            throw new \Exception("Posição " . $posicao . " inválida");
-        }
-    }
-
-    public function validaCodigo($opcao, $posicao) {
-        $opcoes = [0, 1, 2];
         if (array_search($opcao, $opcoes) === false) {
             throw new \Exception("Posição " . $posicao . " inválida");
         }
@@ -104,15 +83,6 @@ class ValidacaoCnab240 extends ArquivoValidacao {
 //            }
 //        }
 //    }
-    
-    public function validaCpfeCnpj($valor, $posicao, $array) {
-        $tamanho = strlen($valor);
-        if($array[$posicao-2] == 1){
-            $this->validaCpf($valor, $posicao);
-        }else{
-            $this->validaCnpj($valor, $posicao);
-        }
-    }
     
     public function validaJuroseDescData($data, $posicao, $array){
         if($array[$posicao-2]==0){
