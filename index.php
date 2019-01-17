@@ -1,13 +1,10 @@
 <?php
 
-spl_autoload_register(function ($class_name) {
-    include $class_name . '.php';
-});
 
-//function my_autoloader($class) {
-//    include 'vendor/guilhermeladeia/gerador/' . $class . '.php';
-//}
-//spl_autoload_register('my_autoloader');
+function my_autoloader($class) {
+    include 'vendor/guilhermeladeia/gerador/' . $class . '.php';
+}
+spl_autoload_register('my_autoloader');
 
 
 use Agz\Agz;
@@ -21,7 +18,6 @@ $segmentoA = [
     4 => "Energisa",
     5 => 89,
     6 => "MAREFARMA (3650-3650",
-    7 => 20190110, //APAGAR
     8 => 120,
 ];
 $instanciaAgz->setSegmentoA($segmentoA);
@@ -82,14 +78,11 @@ $headerArquivo = [1 => 756,
     12 => "",
     13 => "Centersis Tecnologia da Informação LTDA - ME",
     14 => "Sicoob",
-    17 => 7012019, //APAGAR
-    18 => 154422, //APAGAR
     19 => 49,
 ];
 $instanciaCnab240->setHeaderArquivo($headerArquivo);
 $headerLote = [
     20 => 49,
-    21 => '07012019', //APAGAR
 ];
 $instanciaCnab240->setHeaderLote($headerLote);
 
@@ -105,15 +98,10 @@ $segmentoP1 = [
     21 => 153.25,
     24 => 02,
     25 => "A",
-    26 => 7012019, //APAGAR
     27 => 2,
     28 => 22012019,
     29 => 100,
     30 => 0,
-    31 => null,
-    32 => null,
-    33 => null,
-    34 => null,
     35 => "BOLETO TESTE PARCELA UNICA",
     36 => 1,
     40 => 9,
@@ -319,7 +307,6 @@ $tipo1 = [
     23 => 150119,
     24 => 0,
     27 => 31,
-    29 => 110219,
     30 => 00,
     31 => 00,
     32 => 0,
@@ -416,8 +403,9 @@ $instanciaCnab400Bra->setTrailerArquivo($trailer);
 
 
 try {
-    //$instanciaAgz->gerar("Agz02", "arquivoAgz02.txt");
-    //$instanciaCnab240->gerar("Sicoob081", "arquivoSicoob081.txt");
+    $instanciaAgz->gerar("Agz02", "arquivoAgz02.txt");
+    $instanciaCnab240->gerar("Sicoob081", "arquivoSicoob081.txt");
+    $instanciaCnab400Itau->gerar("Itau", "arquivoItau.txt");
     $instanciaCnab400Bra->gerar("Bradesco11", "arquivoBradesco.txt");
     echo "Arquivo Gerado";
 } catch (\Exception $ex) {
